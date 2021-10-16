@@ -1,36 +1,44 @@
 import React, { Component } from 'react'
-import Popover from 'react-bootstrap/Popover'
-import Button from 'react-bootstrap/Button'
-import OverlayTrigger from 'react-bootstrap/OverlayTrigger'
+import Container from 'react-bootstrap/esm/Container';
+import Row from 'react-bootstrap/esm/Row';
+import Col from 'react-bootstrap/esm/Col';
+import PopoverWrapper from './PopoverWrapper';
 
 class TargetInfo extends Component{
   constructor(props) {
     super(props);
-    this.image = props.image;
-    this.name = props.name
+    this.targetImage = props.targetImage;
+    this.targetName = props.targetName;
+    this.latitude = props.latitude;
+    this.longitude = props.longitude;
+    this.elevation = props.elevation;
   }
 
   render() {
-    var popup = (
-      <Popover id="popover-basic">
-      <Popover.Header as="h3">Image of {this.name}</Popover.Header>
-      <Popover.Body>
-        <img src={this.image} alt="sample text" max-width="100%" max-height="100%"/>
-      </Popover.Body>
-    </Popover>
-      );
-
     return (
       <div>
-        <div class="TargetName">
-          <h1>{this.name} </h1>
-        </div>
-        
-      <OverlayTrigger trigger="click" placement="right" overlay={popup}>
-        <Button variant="success">
-          See imagery
-        </Button>
-      </OverlayTrigger>
+        <Container>
+          <Row>
+            <h3>{this.targetName} </h3>
+          </Row>
+          <Row>
+            <Col>Latitude: {this.latitude} </Col>
+            <Col>Longitude: {this.longitude} </Col>
+            <Col>Elevation: {this.elevation} </Col>
+          </Row>
+          <Row>
+            <Col>
+            <PopoverWrapper name={this.targetName} 
+                            imagery={this.targetImage} 
+                            buttonText="See Imagery"/>
+            </Col>
+            <Col>
+            <PopoverWrapper name={this.targetName} 
+                            imagery={this.targetImage} 
+                            buttonText="See Weather"/>
+              </Col>
+          </Row>
+        </Container>
       </div>
     );
   }

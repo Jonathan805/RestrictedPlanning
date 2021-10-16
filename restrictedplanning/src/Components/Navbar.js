@@ -8,24 +8,35 @@ class RestrictedNav extends Component{
   render(){
     return (
     <Navbar bg="light" expand="lg">
-            <Container>
-              <Navbar.Brand href="#home">Reestricted Planning</Navbar.Brand>
-              <Navbar.Toggle aria-controls="basic-navbar-nav" />
-              <Navbar.Collapse id="basic-navbar-nav">
-                <Nav className="me-auto">
-                  <Nav.Link href="#home">Home</Nav.Link>
-                  <Nav.Link href="#link">Link</Nav.Link>
-                  <NavDropdown title="Dropdown" id="basic-nav-dropdown">
-                    <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
-                    <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
-                    <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
-                    <NavDropdown.Divider />
-                    <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
-                  </NavDropdown>
-                </Nav>
-              </Navbar.Collapse>
-            </Container>
-          </Navbar>
+      <Container>
+        <Navbar.Brand href="#home">Restricted Planning</Navbar.Brand>
+        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+        <Navbar.Collapse id="basic-navbar-nav">
+          <Nav className="me-auto">
+          <NavDropdown title="File" id="basic-nav-dropdown">
+            <NavDropdown.Item href="#action/3.1">Save</NavDropdown.Item>
+            <NavDropdown.Item href="#action/3.2">Load</NavDropdown.Item>
+            <NavDropdown.Divider />
+            <NavDropdown.Item href="#action/3.4">Exit</NavDropdown.Item>
+          </NavDropdown>
+            <NavDropdown title="View" id="basic-nav-dropdown">
+              <NavDropdown.Item href="#action/3.1">Zoom-in</NavDropdown.Item>
+              <NavDropdown.Item href="#action/3.2">Zoom-out</NavDropdown.Item>
+              <NavDropdown.Item href="#action/3.3">Reset</NavDropdown.Item>
+              <NavDropdown.Divider />
+              <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
+            </NavDropdown>
+            <NavDropdown title="Route" id="basic-nav-dropdown">
+              <NavDropdown.Item href="#action/3.1">Auto route</NavDropdown.Item>
+              <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
+              <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
+              <NavDropdown.Divider />
+              <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
+            </NavDropdown>
+          </Nav>
+        </Navbar.Collapse>
+      </Container>
+    </Navbar>
     )
   }
 }
