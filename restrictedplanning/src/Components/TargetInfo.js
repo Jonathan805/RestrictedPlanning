@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import Container from 'react-bootstrap/esm/Container';
 import Row from 'react-bootstrap/esm/Row';
 import Col from 'react-bootstrap/esm/Col';
+import Button from 'react-bootstrap/Button'
 import PopoverWrapper from './PopoverWrapper';
 
 class TargetInfo extends Component{
@@ -28,15 +29,18 @@ class TargetInfo extends Component{
           </Row>
           <Row>
             <Col>
-            <PopoverWrapper name={this.targetName} 
-                            imagery={this.targetImage} 
-                            buttonText="See Imagery"/>
+              <PopoverWrapper name={this.targetName} 
+                              imagery={this.targetImage} 
+                              buttonText="See Imagery"/>
             </Col>
             <Col>
-            <PopoverWrapper name={this.targetName} 
-                            imagery={this.targetImage} 
-                            buttonText="See Weather"/>
-              </Col>
+              <PopoverWrapper name={this.targetName} 
+                              imagery={this.targetImage} 
+                              buttonText="See Weather"/>
+            </Col>
+            <Col>
+              <Button>Generate Route</Button>
+            </Col>
           </Row>
         </Container>
       </div>

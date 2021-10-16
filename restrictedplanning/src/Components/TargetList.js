@@ -11,20 +11,20 @@ state = {
     for (var i = 0; i < targetsFile.length; i++) {
       if (!targetsFile[i].name) return
       var reader = new FileReader();
-      var content = reader.readAsText(targetsFile[i])
-      window.alert(content);
-      targets = JSON.parse(content);
-      window.alert(targets);
+      reader.onload = function(e) {
+        let  content = e.target.result;
+        let tempTargets = JSON.parse(content)
+        tempTargets.map((target) => targets.push(target));   
+      }
+       reader.readAsText(targetsFile[i])
     }
-    window.alert("Updating the object")
     this.setState({targets: targets})
   }
 render() {
-    return (
-
-      <DragAndDrop handleDrop={this.handleDrop}>
-        <div style={{height: 300, width: 250}}>
-        <span class="border border-primary">
+    return(
+      <span class="border">
+      <DragAndDrop handleDrop={this.handleDrop} displayText={"Drag target list here"}>
+        <div style={{height: 300, width: 1000}}>
           {this.state.targets.map((target) =>
               <TargetInfo name={target.name}
                           image={target.image}
@@ -32,9 +32,9 @@ render() {
                           longitude={target.longitude}
                           elevation={target.elevation}/>         
           )}
-          </span>
         </div>
       </DragAndDrop>
+      </span>
     )
   }
 }

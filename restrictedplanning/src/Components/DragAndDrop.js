@@ -4,6 +4,12 @@ class DragAndDrop extends Component {
   state = {
     drag: false
   }
+
+  constructor(props)  {
+    super(props);
+    this.displayText = props.displayText;
+  }
+
   dropRef = React.createRef()
   handleDrag = (e) => {
     e.preventDefault()
@@ -55,6 +61,7 @@ class DragAndDrop extends Component {
         style={{display: 'inline-block', position: 'relative'}}
         ref={this.dropRef}
       >
+        {this.displayText}
         {this.state.dragging &&
           <div 
             style={{
