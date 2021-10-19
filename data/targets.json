@@ -1,6 +1,6 @@
 [{
   "name": "Ship1",
-  "image": "ship1Image",
+  "image": "https://restrictedplanning.s3.us-west-1.amazonaws.com/1.png",
   "latitude": "21.3496711",
   "longitude": "-157.9685571,7858",
   "elevation": "0 MSL",
@@ -8,7 +8,7 @@
 },
 {
   "name": "Ship2",
-  "image": "ship2Image",
+  "image": "https://restrictedplanning.s3.us-west-1.amazonaws.com/2.png",
   "latitude": "21.3496711",
   "longitude": "-157.9685571,7858",
   "elevation": "0 MSL",
@@ -16,7 +16,7 @@
 },
 {
   "name": "Ship3",
-  "image": "ship3Image",
+  "image": "https://restrictedplanning.s3.us-west-1.amazonaws.com/3.png",
   "latitude": "21.3496711",
   "longitude": "-157.9685571,7858",
   "elevation": "0 MSL",
@@ -24,7 +24,7 @@
 },
 {
   "name": "Ship4",
-  "image": "ship4Image",
+  "image": "https://restrictedplanning.s3.us-west-1.amazonaws.com/4.png",
   "latitude": "21.3496711",
   "longitude": "-157.9685571,7858",
   "elevation": "0 MSL",
