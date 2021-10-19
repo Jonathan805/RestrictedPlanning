@@ -1,6 +1,7 @@
 import React, { Component} from "react"
 import './App.css';
 import Nav from "./Components/Navbar";
+import Inventory from "./Components/Inventory";
 import 'bootstrap/dist/css/bootstrap.css'
 import Container from "react-bootstrap/esm/Container";
 import Row from "react-bootstrap/Row"
@@ -16,6 +17,7 @@ class App extends Component{
                 <TargetList />            
               </Row>
             </Container>
+            <Inventory />
         </div>
       );
     }

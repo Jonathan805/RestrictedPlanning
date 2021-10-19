@@ -40,10 +40,10 @@ class AtoInput extends Component{
   }
 
   render() {
-    return
+    return(
     <div ref={this.dropRef}>
       {this.props.children}
-    </div>
+    </div>)
   }
 };
 

@@ -3,26 +3,30 @@
   "image": "ship1Image",
   "latitude": "21.3496711",
   "longitude": "-157.9685571,7858",
-  "elevation": "0 MSL"
+  "elevation": "0 MSL",
+  "successChance": "0.75"
 },
 {
   "name": "Ship2",
   "image": "ship2Image",
   "latitude": "21.3496711",
   "longitude": "-157.9685571,7858",
-  "elevation": "0 MSL"
+  "elevation": "0 MSL",
+  "successChance": "0.75"
 },
 {
   "name": "Ship3",
   "image": "ship3Image",
   "latitude": "21.3496711",
   "longitude": "-157.9685571,7858",
-  "elevation": "0 MSL"
+  "elevation": "0 MSL",
+  "successChance": "0.75"
 },
 {
   "name": "Ship4",
   "image": "ship4Image",
   "latitude": "21.3496711",
   "longitude": "-157.9685571,7858",
-  "elevation": "0 MSL"
+  "elevation": "0 MSL",
+  "successChance": "0.75"
 }]

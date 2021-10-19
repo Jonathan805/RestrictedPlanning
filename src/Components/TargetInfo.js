@@ -8,11 +8,7 @@ import PopoverWrapper from './PopoverWrapper';
 class TargetInfo extends Component{
   constructor(props) {
     super(props);
-    this.targetImage = props.targetImage;
-    this.targetName = props.targetName;
-    this.latitude = props.latitude;
-    this.longitude = props.longitude;
-    this.elevation = props.elevation;
+    this.target = props.target;
   }
 
   render() {
@@ -20,22 +16,22 @@ class TargetInfo extends Component{
       <div>
         <Container>
           <Row>
-            <h3>{this.targetName} </h3>
+            <h3>{this.target.targetName} </h3>
           </Row>
           <Row>
-            <Col>Latitude: {this.latitude} </Col>
-            <Col>Longitude: {this.longitude} </Col>
-            <Col>Elevation: {this.elevation} </Col>
+            <Col>Latitude: {this.target.latitude} </Col>
+            <Col>Longitude: {this.target.longitude} </Col>
+            <Col>Elevation: {this.target.elevation} </Col>
           </Row>
           <Row>
             <Col>
-              <PopoverWrapper name={this.targetName} 
-                              imagery={this.targetImage} 
+              <PopoverWrapper name={this.target.targetName} 
+                              imagery={this.target.targetImage} 
                               buttonText="See Imagery"/>
             </Col>
             <Col>
-              <PopoverWrapper name={this.targetName} 
-                              imagery={this.targetImage} 
+              <PopoverWrapper name={this.target.targetName} 
+                              imagery={this.target.targetImage} 
                               buttonText="See Weather"/>
             </Col>
             <Col>

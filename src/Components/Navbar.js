@@ -5,38 +5,68 @@ import Nav from 'react-bootstrap/Nav'
 import NavDropdown from 'react-bootstrap/NavDropdown'
 
 class RestrictedNav extends Component{
+  constructor(props){
+    super(props);
+    this.state = {missions: [], showForm:false, activeMission:""};
+  }
+
+  handleActivateMission(e) {
+    //window.alert(e)
+  }
+
+  createMission()  {
+    
+  }
+
+  getMissions()  {
+    if (this.state.missions.length > 0){
+     return this.missions.map((mission) => <NavDropdown.Item>{mission}</NavDropdown.Item>)
+    }
+    else {
+     return <NavDropdown.Item onClick={this.handleActivateMission()} >No Missions</NavDropdown.Item>
+    }
+  }
+
   render(){
     return (
-    <Navbar bg="light" expand="lg">
+      <>
+    <Navbar bg="dark" variant="dark" expand="lg">
       <Container>
-        <Navbar.Brand href="#home">Restricted Planning</Navbar.Brand>
+        <Navbar.Brand>Restricted Planning</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
           <NavDropdown title="File" id="basic-nav-dropdown">
-            <NavDropdown.Item href="#action/3.1">Save</NavDropdown.Item>
-            <NavDropdown.Item href="#action/3.2">Load</NavDropdown.Item>
+            <NavDropdown.Item>Save</NavDropdown.Item>
+            <NavDropdown.Item>Load</NavDropdown.Item>
             <NavDropdown.Divider />
-            <NavDropdown.Item href="#action/3.4">Exit</NavDropdown.Item>
+            <NavDropdown.Item>Exit</NavDropdown.Item>
           </NavDropdown>
             <NavDropdown title="View" id="basic-nav-dropdown">
-              <NavDropdown.Item href="#action/3.1">Zoom-in</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.2">Zoom-out</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.3">Reset</NavDropdown.Item>
+              <NavDropdown.Item>Zoom-in</NavDropdown.Item>
+              <NavDropdown.Item>Zoom-out</NavDropdown.Item>
+              <NavDropdown.Item>Reset</NavDropdown.Item>
               <NavDropdown.Divider />
-              <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
+              <NavDropdown.Item>Separated link</NavDropdown.Item>
             </NavDropdown>
             <NavDropdown title="Route" id="basic-nav-dropdown">
-              <NavDropdown.Item href="#action/3.1">Auto route</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
+              <NavDropdown.Item>Auto route</NavDropdown.Item>
+              <NavDropdown.Item>Another action</NavDropdown.Item>
+              <NavDropdown.Item>Something</NavDropdown.Item>
               <NavDropdown.Divider />
-              <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
+              <NavDropdown.Item >Separated link</NavDropdown.Item>
+            </NavDropdown>
+            <NavDropdown title="Mission" id="basic-nav-dropdown">
+              {this.getMissions()}
+              <NavDropdown.Divider />
+              <NavDropdown.Item onClick={() =>this.createMission()}>Add Mission</NavDropdown.Item>
             </NavDropdown>
           </Nav>
         </Navbar.Collapse>
+        <Navbar.Brand >Active Mission: {this.activeMission}</Navbar.Brand>
       </Container>
     </Navbar>
+    </>
     )
   }
 }
