@@ -4,8 +4,15 @@ import Container from 'react-bootstrap/Container'
 import Nav from 'react-bootstrap/Nav'
 import NavDropdown from 'react-bootstrap/NavDropdown'
 import HoverDropdown from './HoverDropdown'
+import { Plane } from '../Classes/Plane'
+import { Pilot } from '../Classes/Pilot'
+import { Weapon } from '../Classes/Weapon'
+import { Sortie } from '../Classes/Sortie'
+import { Carrier } from '../Classes/Carrier'
 
 class Inventory extends Component{
+
+
 
 getPilots = () => {
   const numPilots = [...Array(21).keys()];

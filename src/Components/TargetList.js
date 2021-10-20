@@ -24,7 +24,7 @@ state = {
       }
        reader.readAsText(targetsFile[i])
     }
-     this.setState({targets: targets})
+     this.setState({targets: targets}, () => {this.forceUpdate()} )
   }
 
 render() {

@@ -3,11 +3,12 @@ import Navbar from 'react-bootstrap/Navbar'
 import Container from 'react-bootstrap/Container'
 import Nav from 'react-bootstrap/Nav'
 import NavDropdown from 'react-bootstrap/NavDropdown'
+import Modal from 'react-bootstrap/Modal'
 
 class RestrictedNav extends Component{
   constructor(props){
     super(props);
-    this.state = {missions: [], showForm:false, activeMission:""};
+    this.state = {missions: [], showForm:false};
   }
 
   handleActivateMission(e) {
@@ -16,6 +17,7 @@ class RestrictedNav extends Component{
 
   createMission()  {
     
+
   }
 
   getMissions()  {
