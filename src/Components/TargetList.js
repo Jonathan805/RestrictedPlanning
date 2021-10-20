@@ -31,7 +31,7 @@ render() {
     return(
       <span class="border">
       <DragAndDrop handleDrop={this.handleDrop} displayText={"Drag target list here"}>
-        <div style={{height: 300, width: 1000}}>
+        <div style={{height: 300, width: 1200}}>
           {this.state.targets.map((target) =>
               <TargetInfo target={target}/>         
           )}

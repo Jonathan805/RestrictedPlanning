@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, useState } from 'react'
 import Container from 'react-bootstrap/esm/Container';
 import Row from 'react-bootstrap/esm/Row';
 import Col from 'react-bootstrap/esm/Col';
@@ -7,43 +7,45 @@ import PopoverWrapper from './PopoverWrapper';
 import TimeLine from 'react-gantt-timeline';
 import Generator from './Borrowed/Generator';
 import ObjectHelper from './Borrowed/ObjectHelper';
+import { Toast } from 'react-bootstrap';
+
 
 class TargetInfo extends Component{
   constructor(props) {
     super(props);
     this.target = props.target;
     this.data = [{
-      id: ObjectHelper.genID(),
+      id: 1,
       start: new Date(),
       end: this.getRandomDate(),
       name: 'New Task',
-      color: this.getRandomColor()
+      color: this.getPurpleColor()
     },
     {
-      id: ObjectHelper.genID(),
+      id: 2,
       start: new Date(),
       end: this.getRandomDate(),
       name: 'New Task',
-      color: this.getRandomColor()
+      color: this.getPurpleColor()
     }]
     this.state = {
       itemheight: 20,
       data: [],
       selectedItem: null,
       timelineMode: 'week',
-      links: null,
-      nonEditableName: false
+      links: [],
+      nonEditableName: true
     };
   } 
-
+  
   handleDayWidth = (e) => {
     this.setState({ daysWidth: parseInt(e.target.value) });
   };
-
+  
   handleItemHeight = (e) => {
     this.setState({ itemheight: parseInt(e.target.value) });
   };
-
+  
   onHorizonChange = (start, end) => {
     let result = this.data.filter((item) => {
       return (item.start < start && item.end > end) || (item.start > start && item.start < end) || (item.end > start && item.end < end);
@@ -51,66 +53,65 @@ class TargetInfo extends Component{
     console.log('Calculating ');
     this.setState({ data: result });
   };
-
+  
   onSelectItem = (item) => {
     console.log(`Select Item ${item}`);
     this.setState({ selectedItem: item });
   };
-
+  
   onUpdateTask = (item, props) => {
     item.start = props.start;
     item.end = props.end;
+    let difference = (item.end - item.start) / 1000 / 60 / 60;
+    if (difference > 4){
+      item.color = this.getRedColor();
+    }
+    else{
+      item.color = this.getPurpleColor();
+    }   
     this.setState({ data: [...this.state.data] });
     console.log(`Update Item ${item}`);
   };
 
+  shiftItems = () => {
+
+  }
+  
   onCreateLink = (item) => {
     let newLink = Generator.createLink(item.start, item.end);
     this.setState({ links: [...this.state.links, newLink] });
     console.log(`Update Item ${item}`);
   };
-
+  
   getbuttonStyle(value) {
     return this.state.timelineMode == value ? { backgroundColor: 'grey', boder: 'solid 1px #223344' } : {};
   }
-
+  
   modeChange = (value) => {
     this.setState({ timelineMode: value });
   };
-
+  
   genID() {
     function S4() {
       return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
     }
     return (S4() + S4() + '-' + S4() + '-4' + S4().substr(0, 3) + '-' + S4() + '-' + S4() + S4() + S4()).toLowerCase();
   }
-
+  
   getRandomDate() {
     let result = new Date();
     result.setHours(result.getHours() + 4);
     return result;
   }
 
-  getRandomColor() {
-    var letters = '0123456789ABCDEF';
-    var color = '#';
-    for (var i = 0; i < 6; i++) {
-      color += letters[Math.floor(Math.random() * 16)];
-    }
-    return color;
+  getRedColor(){
+    return "#FF0000";
   }
 
-  addTask = () => {
-    let newTask = {
-      id: this.state.data.length + 1,
-      start: new Date(),
-      end: this.getRandomDate(),
-      name: 'New Task',
-      color: this.getRandomColor()
-    };
-    this.setState({ data: [newTask, ...this.state.data] });
-  };
-
+  getPurpleColor()  {
+    return 	"#4B0082";
+  }
+   
   render() {
     let config = {
       header:{ //Targert the time header containing the information month/day of the week, day and time.
@@ -130,7 +131,7 @@ class TargetInfo extends Component{
         title:{//The title od the task list
           label:"Sorties",//The caption to display as title
           style:{backgroundColor:  '#333333',borderBottom:  'solid 1px silver',
-               color:  'white',textAlign:  'center'}//The style to be applied to the title
+          color:  'white',textAlign:  'center'}//The style to be applied to the title
         },
         task:{// The items inside the list diplaying the task
           style:{backgroundColor:  '#fbf9f9'}// the style to be applied
@@ -145,12 +146,12 @@ class TargetInfo extends Component{
       dataViewPort:{//The are where we display the task
         rows:{//the row constainting a task
           style:{backgroundColor:"#fbf9f9",borderBottom:'solid 0.5px #cfcfcd'}
-          },
+        },
         task:{//the task itself
-          showLabel:false,//If the task display the a lable
+          showLabel:true,//If the task display the a lable
           style:{position:  'absolute',borderRadius:14,color:  'white',
-               textAlign:'center',backgroundColor:'grey'},
-           selectedStyle:{}//the style tp be applied  when selected
+          textAlign:'center',backgroundColor:'grey'},
+          selectedStyle:{}//the style tp be applied  when selected
         }
       },
       links:{//The link between two task
@@ -162,42 +163,56 @@ class TargetInfo extends Component{
       <div>
         <Container>
           <Row>
-            <h3>{this.target.targetName} </h3>
-          </Row>
-          <Row>
-          <Row>Latitude: {this.target.latitude} </Row>
-          <Row>Longitude: {this.target.longitude} </Row>
-          <Row>Elevation: {this.target.elevation} </Row>
-          </Row>
-          <Row>
             <Col>
-              <PopoverWrapper name={this.target.targetName} 
-                              imagery={this.target.targetImage} 
-                              buttonText="See Imagery"/>
+              {/* title row*/}
+              <Row>
+                <h3>{this.target.targetName} </h3>
+              </Row>
+              {/* data row*/}
+              <Row>
+                <Col> 
+                  <Row>
+                    <Row>Latitude: {this.target.latitude} </Row>
+                    <Row>Longitude: {this.target.longitude} </Row>
+                    <Row>Elevation: {this.target.elevation} </Row>
+                  </Row>
+                </Col>
+              </Row>
+              {/* button row*/}
+              <Row xs="auto"> 
+                <Col>
+                  <PopoverWrapper name={this.target.targetName} 
+                                  imagery={this.target.targetImage} 
+                                  buttonText="See Imagery"/>
+                </Col>
+                <Col>
+                  <Button>Generate Route</Button>
+                </Col>
+                <Col /> {/* empty columns for formatting */}
+                <Col />
+              </Row>
             </Col>
-            <Col>
-              <Button>Generate Route</Button>
-            </Col>
-          </Row>
-          <Row>
-          <TimeLine
-            config={config}
-            data={this.state.data}
-            links={this.state.links}
-            onHorizonChange={this.onHorizonChange}
-            onSelectItem={this.onSelectItem}
-            onUpdateTask={this.onUpdateTask}
-            onCreateLink={this.onCreateLink}
-            mode={this.state.timelineMode}
-            itemheight={this.state.itemheight}
-            selectedItem={this.state.selectedItem}
-            nonEditableName={this.state.nonEditableName}
-          />
-          </Row>
+            {/* time line column */}
+            <Col> 
+              <TimeLine
+              config={config}
+              data={this.state.data}
+              links={this.state.links}
+              onHorizonChange={this.onHorizonChange}
+              onSelectItem={this.onSelectItem}
+              onUpdateTask={this.onUpdateTask}
+              onCreateLink={this.onCreateLink}
+              mode={this.state.timelineMode}
+              itemheight={this.state.itemheight}
+              selectedItem={this.state.selectedItem}
+              nonEditableName={this.state.nonEditableName}
+              /> 
+            </Col>   
+          </Row>   
         </Container>
       </div>
-    );
+      );
+    }
   }
-}
-
-export default TargetInfo
+  
+  export default TargetInfo

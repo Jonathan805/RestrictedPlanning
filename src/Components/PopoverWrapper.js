@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import Popover from 'react-bootstrap/Popover'
 import Button from 'react-bootstrap/Button'
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger'
+import Image from 'react-bootstrap/Image'
 
 class PopoverWrapper extends Component{
 
@@ -20,7 +21,8 @@ class PopoverWrapper extends Component{
       <Popover id="popover-basic">
       <Popover.Header as="h3">Image of {this.name}</Popover.Header>
       <Popover.Body>
-        <img src={this.imagery} alt="sample text" max-width="100%" max-height="100%" object-fit="cover"/>
+        <Image src={this.imagery} 
+              fluid/>
       </Popover.Body>
     </Popover>
       );
