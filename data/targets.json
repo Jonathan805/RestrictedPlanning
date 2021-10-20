@@ -1,23 +1,23 @@
 [{
-  "name": "Ship1",
+  "name": "USS Oklahoma",
   "image": "https://restrictedplanning.s3.us-west-1.amazonaws.com/1.png",
-  "latitude": "21.3496711",
-  "longitude": "-157.9685571,7858",
+  "latitude": "21°21'44.9\"N",
+  "longitude": "157°57'12.6\"W",
   "elevation": "0 MSL",
   "successChance": "0.75"
 },
 {
-  "name": "Ship2",
+  "name": "USS Arizona",
   "image": "https://restrictedplanning.s3.us-west-1.amazonaws.com/2.png",
-  "latitude": "21.3496711",
-  "longitude": "-157.9685571,7858",
+  "latitude": "21°21'53.8\"N",
+  "longitude": "157°57'01.0\"W",
   "elevation": "0 MSL",
   "successChance": "0.75"
 },
 {
-  "name": "Ship3",
+  "name": "Aloha Stadium",
   "image": "https://restrictedplanning.s3.us-west-1.amazonaws.com/3.png",
-  "latitude": "21.3496711",
+  "latitude": "21.3741464",
   "longitude": "-157.9685571,7858",
   "elevation": "0 MSL",
   "successChance": "0.75"
