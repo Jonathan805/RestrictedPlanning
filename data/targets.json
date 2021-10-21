@@ -4,7 +4,22 @@
   "latitude": "21°21'44.9\"N",
   "longitude": "157°57'12.6\"W",
   "elevation": "0 MSL",
-  "successChance": "0.75"
+  "successChance": "0.75",
+  "sorties": [{"startTime":"2021-10-21T18:00:00.000Z", 
+               "endTime": "2021-10-21T22:00:00.000Z",
+               "tail": "EJJ-1"},
+               {"startTime":"2021-10-21T12:00:00.000Z", 
+                "endTime": "2021-10-21T16:00:00.000Z",
+                "tail": "EJJ-2"},
+               {"startTime":"2021-10-21T08:00:00.000Z", 
+                "endTime": "2021-10-21T10:00:00.000Z",
+                "tail": "EJJ-3"},
+              {"startTime":"2021-10-21T10:00:00.000Z", 
+                "endTime": "2021-10-21T22:00:00.000Z",
+                "tail": "EJJ-4"},
+               {"startTime":"2021-10-21T13:00:00.000Z", 
+                "endTime": "2021-10-21T00:00:00.000Z",
+                "tail": "EJJ-5"}]
 },
 {
   "name": "USS Arizona",
@@ -12,7 +27,13 @@
   "latitude": "21°21'53.8\"N",
   "longitude": "157°57'01.0\"W",
   "elevation": "0 MSL",
-  "successChance": "0.75"
+  "successChance": "0.75",
+  "sorties": [{"startTime":"2021-10-22T18:00:00.000Z", 
+               "endTime": "2021-10-22T22:00:00.000Z",
+               "tail": "EJJ-11"},
+              {"startTime":"2021-10-22T12:00:00.000Z", 
+               "endTime": "2021-10-22T16:00:00.000Z",
+               "tail": "EJJ-12"}]
 },
 {
   "name": "Aloha Stadium",
@@ -20,13 +41,11 @@
   "latitude": "21.3741464",
   "longitude": "-157.9685571,7858",
   "elevation": "0 MSL",
-  "successChance": "0.75"
-},
-{
-  "name": "Ship4",
-  "image": "https://restrictedplanning.s3.us-west-1.amazonaws.com/4.png",
-  "latitude": "21.3496711",
-  "longitude": "-157.9685571,7858",
-  "elevation": "0 MSL",
-  "successChance": "0.75"
+  "successChance": "0.75",
+  "sorties": [{"startTime":"2021-10-22T18:00:00.000Z", 
+              "endTime": "2021-10-22T22:00:00.000Z",
+              "tail": "EJJ-21"},
+             {"startTime":"2021-10-22T12:00:00.000Z", 
+              "endTime": "2021-10-22T16:00:00.000Z",
+              "tail": "EJJ-22"}]
 }]

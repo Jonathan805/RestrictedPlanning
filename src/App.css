@@ -36,3 +36,20 @@
     transform: rotate(360deg);
   }
 }
+
+.targetData{
+  display:flex;
+}
+
+.targetData > p {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+.targetRow{
+  display:flex;
+}
+
+.timeline{
+  max-width: 10in;
+  max-height: 2in;
+}

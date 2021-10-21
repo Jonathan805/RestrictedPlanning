@@ -6,27 +6,10 @@ import Button from 'react-bootstrap/Button'
 import PopoverWrapper from './PopoverWrapper';
 import TimeLine from 'react-gantt-timeline';
 import Generator from './Borrowed/Generator';
-import DragAndDrop from './DragAndDrop';
-import CustomToast from '../Functions/CustomToast';
 
 class TargetInfo extends Component{
   constructor(props) {
     super(props);
-    this.target = props.target;
-    this.data = [{
-      id: 1,
-      start: new Date(),
-      end: this.getRandomDate(),
-      name: 'New Task',
-      color: this.getPurpleColor()
-    },
-    {
-      id: 2,
-      start: new Date(),
-      end: this.getRandomDate(),
-      name: 'New Task',
-      color: this.getPurpleColor()
-    }]
     this.state = {
       itemheight: 20,
       data: [],
@@ -35,6 +18,22 @@ class TargetInfo extends Component{
       links: [],
       nonEditableName: true
     };
+
+    this.target = props.target;
+    this.sorties = props.target.sorties;
+    this.data = [];
+    // Create timeline data from the sortie data in JSON
+    this.sorties.map((sortie, index) => 
+      this.data.push(
+        {
+          id: index,
+          start: new Date(sortie.startTime),
+          end:  new Date(sortie.endTime),
+          name: sortie.tail,
+          color: this.getPurpleColor()
+        }
+      )// end push
+    )// end map
   } 
   
   handleDayWidth = (e) => {
@@ -69,7 +68,6 @@ class TargetInfo extends Component{
       item.color = this.getPurpleColor();
     }   
     this.setState({ data: [...this.state.data] });
-    console.log(`Update Item ${item}`);
   };
 
   shiftItems = () => {
@@ -160,40 +158,13 @@ class TargetInfo extends Component{
     }
     return (
       <div>
-        <Container>
-          <Row>
-            <Col>
-              {/* title row*/}
-              <Row>
-                <h3>{this.target.targetName} </h3>
-              </Row>
-              {/* data row*/}
-              <Row>
-                <Col> 
-                  <Row>
-                    <Row>Latitude: {this.target.latitude} </Row>
-                    <Row>Longitude: {this.target.longitude} </Row>
-                    <Row>Elevation: {this.target.elevation} </Row>
-                  </Row>
-                </Col>
-              </Row>
-              {/* button row*/}
-              <Row xs="auto"> 
-                <Col>
-                  <PopoverWrapper name={this.target.targetName} 
-                                  imagery={this.target.targetImage} 
-                                  buttonText="See Imagery"/>
-                </Col>
-                <Col>
-                  <Button onClick={() => <CustomToast date={new Date()} message={"Route Created"}/>}>Generate Route</Button>
-                </Col>
-                <Col /> {/* empty columns for formatting */}
-                <Col />
-              </Row>
-            </Col>
-            {/* time line column */}
-            <Col> 
-              <TimeLine
+        {/* title row*/}
+        <div className="targetTitle">
+          <h3>{this.target.targetName} </h3>
+        </div>
+      <div className="targetRow">
+        <div className="timeline">
+        <TimeLine
               config={config}
               data={this.state.data}
               links={this.state.links}
@@ -206,9 +177,20 @@ class TargetInfo extends Component{
               selectedItem={this.state.selectedItem}
               nonEditableName={this.state.nonEditableName}
               /> 
-            </Col>   
-          </Row>   
-        </Container>
+          </div>              
+        <div>
+          <p>Latitude: {this.target.latitude} </p>
+          <p>Longitude: {this.target.longitude} </p>
+          <p>Elevation: {this.target.elevation} </p>
+          <p>Chance of success: {this.target.successChance}</p>
+        </div>
+        <div>
+          <PopoverWrapper name={this.target.targetName} 
+                                    imagery={this.target.targetImage} 
+                                    buttonText="See Imagery"/>
+        </div>
+        <div><Button>Generate Route</Button></div>
+      </div>
       </div>
       );
     }

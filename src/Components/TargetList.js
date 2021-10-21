@@ -18,15 +18,17 @@ state = {
       reader.onload = function(e) {
         let  content = e.target.result;
         let tempTargets = JSON.parse(content)
-        tempTargets.map((target) => targets.push(new TargetClass(target.image, 
+        tempTargets.map((target) =>  targets.push(new TargetClass(target.image, 
                                                              target.name, 
                                                              target.latitude, 
                                                              target.longitude, 
-                                                             target.elevation)));   
+                                                             target.elevation, 
+                                                             target.successChance, 
+                                                             target.sorties)));   
       }
        reader.readAsText(targetsFile[i])
     }
-     this.setState({targets: targets}, () => {this.forceUpdate()} )
+     this.setState({targets: targets} )
   }
 
 render() {
