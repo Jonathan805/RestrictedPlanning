@@ -1,4 +1,4 @@
-import React, { Component, useState } from 'react'
+import React, { Component } from 'react'
 import Container from 'react-bootstrap/esm/Container';
 import Row from 'react-bootstrap/esm/Row';
 import Col from 'react-bootstrap/esm/Col';
@@ -6,9 +6,8 @@ import Button from 'react-bootstrap/Button'
 import PopoverWrapper from './PopoverWrapper';
 import TimeLine from 'react-gantt-timeline';
 import Generator from './Borrowed/Generator';
-import ObjectHelper from './Borrowed/ObjectHelper';
-import { Toast } from 'react-bootstrap';
-
+import DragAndDrop from './DragAndDrop';
+import CustomToast from '../Functions/CustomToast';
 
 class TargetInfo extends Component{
   constructor(props) {
@@ -186,7 +185,7 @@ class TargetInfo extends Component{
                                   buttonText="See Imagery"/>
                 </Col>
                 <Col>
-                  <Button>Generate Route</Button>
+                  <Button onClick={() => <CustomToast date={new Date()} message={"Route Created"}/>}>Generate Route</Button>
                 </Col>
                 <Col /> {/* empty columns for formatting */}
                 <Col />

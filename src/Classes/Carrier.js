@@ -12,4 +12,16 @@ export class Carrier{
   getData()  {
 
   }
+
+  addPilot(pilot)  {
+    this.pilots.push(pilot);
+  }
+
+  addPlane(plane){
+    this.planes.push(plane);
+  }
+
+  addWeapon(weapon){
+    this.weapons.push(weapon);
+  }
 }

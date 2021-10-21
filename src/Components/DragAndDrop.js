@@ -2,7 +2,8 @@
 import React, { Component } from 'react'
 class DragAndDrop extends Component {
   state = {
-    drag: false
+    drag: true,
+    onlyonedrop: true,
   }
 
   constructor(props)  {
@@ -32,13 +33,17 @@ class DragAndDrop extends Component {
     }
   }
   handleDrop = (e) => {
+    console.log("Dropped")
     e.preventDefault()
     e.stopPropagation()
     this.setState({drag: false})
     if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
       this.props.handleDrop(e.dataTransfer.files)
+      console.log("Handled drop")
       e.dataTransfer.clearData()
-      this.dragCounter = 0    
+      this.displayText = "";
+      this.dragCounter = 0  
+      this.setState({onlyonedrop: true})  
     }
   }
   componentDidMount() {
@@ -57,12 +62,13 @@ class DragAndDrop extends Component {
   }
   render() {
     return (
+      <>
+      {this.state.onlyonedrop &&
       <div
         style={{display: 'inline-block', position: 'relative'}}
         ref={this.dropRef}
-      >
-        {this.displayText}
-        {this.state.dragging &&
+      >        
+        {this.state.drag && 
           <div 
             style={{
               border: 'dashed grey 4px',
@@ -86,12 +92,14 @@ class DragAndDrop extends Component {
                 fontSize: 36
               }}
             >
-              <div>drop here :)</div>
+              <div>{this.displayText}</div>
             </div>
           </div>
         }
         {this.props.children}
       </div>
+      }
+      </>
     )
   }
 }

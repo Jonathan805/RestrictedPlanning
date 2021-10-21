@@ -15,6 +15,10 @@ export class Plane{
     this.pilot = pilot;
   }
 
+  getPilot(){
+    return this.pilot.name;
+  }
+
   addWeapon(weapon){
     this.weapons.push(weapon);
   }
