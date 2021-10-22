@@ -12,3 +12,70 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+#section-left {
+  overflow:hidden;
+  float:left;    
+}
+#section-right {
+  width: Auto;
+  float:left;
+}
+
+
+select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  width:100px;
+  /*appearance: none;        Remove default arrow 
+  background-image: url(...);  Add custom arrow */
+}
+
+.missionfunctions {
+  opacity: 0.9;
+  align-content: left;
+  display: flex;
+  justify-content: space-between;
+  width: Auto;
+  max-width: 12000px;
+  height: 1000px;
+  overflow: hidden;
+  margin: 0 auto;
+  margin-top: 40px;
+  padding: 20px;  
+  flex-direction: column;
+  background-color: #ffffff;
+  }
+
+.flexbox {
+opacity: 0.9;
+align-content: left;
+display: flex;
+justify-content: space-between;
+width: 90vh;
+max-width: 650px;
+height: 100vh;
+overflow: hidden;
+margin: 0 auto;
+padding: 20px;  
+}
+
+.flexbox .board{
+  opacity: 0.95;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 300px;
+  background-color: #86e46f;
+  padding: 10px;
+}
+ 
+
+.flexbox .board .aircraft{
+  padding: 1px 25px;
+  background-color: #2237ee;
+  cursor: pointer;
+  margin-bottom:15px;
+}
+
+
