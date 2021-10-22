@@ -12,6 +12,8 @@ import Card from "./Components/Card";
 import Growler from './AircraftImages/Growler.png';
 import F35 from './AircraftImages/F35.png';
 import B2 from './AircraftImages/B2.png';
+import FA18F from './AircraftImages/FA-18A.png';
+
 
 class App extends Component {
 
@@ -24,20 +26,20 @@ class App extends Component {
           <main className="flexbox" >
             <Board id="board-1" className="board" >
               <center><h3>Inventory</h3></center>
-              <Card id="Aircraft-1" className="aircraft" draggable="true">
-                <p>F-35
-                <br></br>
-                  <img src={F35} alt="F35" />
+              <Card id="Aircraft-2" className="aircraft" draggable="true">
+                <p>EA-18G (Growler)
+                <br></br><img src={Growler} alt="Growler" />
                   <select name="count" id="count">
                     <option value="1">1</option>
                     <option value="2">2</option>
+                    <option value="3">3</option>
                   </select>
                 </p>
               </Card>
 
-              <Card id="Aircraft-2" className="aircraft" draggable="true">
-                <p>Growler
-                <br></br><img src={Growler} alt="Growler" />
+              <Card id="Aircraft-3" className="aircraft" draggable="true">
+                <p>FA-18F (Hornet)
+                <br></br><img src={FA18F} alt="FA-18F" />
                   <select name="count" id="count">
                     <option value="1">1</option>
                     <option value="2">2</option>
@@ -56,11 +58,23 @@ class App extends Component {
                   <option value="4">4</option>
                 </select>
               </Card>
+
+              <Card id="Aircraft-1" className="aircraft" draggable="true">
+                <p>F-35
+                <br></br>
+                  <img src={F35} alt="F35" />
+                  <select name="count" id="count">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                  </select>
+                </p>
+              </Card>
             </Board>
             <Board id="board-2" className="board">
               <center><h3>Mission</h3></center>
 
             </Board>
+
           </main>
         </section>
 
