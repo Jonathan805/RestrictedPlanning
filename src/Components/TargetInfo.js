@@ -26,6 +26,7 @@ class TargetInfo extends Component{
           id: index,
           start: new Date(sortie.startTime),
           end:  new Date(sortie.endTime),
+          restEnd: new Date(sortie.restEndTime),
           name: sortie.tail,
           color: this.getPurpleColor(),
           color2: this.getRestColor()
