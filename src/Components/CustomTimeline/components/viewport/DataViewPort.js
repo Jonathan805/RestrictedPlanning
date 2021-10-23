@@ -40,8 +40,10 @@ export class DataViewPort extends Component {
       let item = this.props.data[i];
       if (!item) break;
       //FIXME PAINT IN BOUNDARIES
-
+      
+      // new_position ----(color)----- new_width ---- (color2)----- new-width2
       let new_position = DateHelper.dateToPixel(item.start, this.props.nowposition, this.props.dayWidth);
+      let new_width2 = DateHelper.dateToPixel(item.start2, this.props.nowposition, this.props.dayWidth) - new_position;
       let new_width = DateHelper.dateToPixel(item.end, this.props.nowposition, this.props.dayWidth) - new_position;
       result.push(
         <DataRow key={i} label={item.name} top={i * this.props.itemheight} left={20} itemheight={this.props.itemheight}>
@@ -51,7 +53,9 @@ export class DataViewPort extends Component {
             nowposition={this.props.nowposition}
             dayWidth={this.props.dayWidth}
             color={item.color}
+            color2={item.color2}
             left={new_position}
+            width2 = {new_width2}
             width={new_width}
             height={this.props.itemheight}
             onChildDrag={this.onChildDrag}
@@ -61,6 +65,7 @@ export class DataViewPort extends Component {
             onFinishCreateLink={this.props.onFinishCreateLink}
             onTaskChanging={this.props.onTaskChanging}
             onUpdateTask={this.props.onUpdateTask}
+
           >
             {' '}
           </DataTask>

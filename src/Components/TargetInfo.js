@@ -27,7 +27,8 @@ class TargetInfo extends Component{
           start: new Date(sortie.startTime),
           end:  new Date(sortie.endTime),
           name: sortie.tail,
-          color: this.getPurpleColor()
+          color: this.getPurpleColor(),
+          color2: this.getRestColor()
         }
       )// end push
     )// end map
@@ -105,6 +106,11 @@ class TargetInfo extends Component{
   getPurpleColor()  {
     return 	"#4B0082";
   }
+
+  getRestColor(){
+    return "#FFD700";
+  }
+
    
   render() {
     let config = {

@@ -8,7 +8,7 @@ export default class DataTask extends Component {
   constructor(props) {
     super(props);
     this.calculateStyle = this.calculateStyle.bind(this);
-    this.state = { dragging: false, left: this.props.left, width: this.props.width, mode: MODE_NONE };
+    this.state = { dragging: false, left: this.props.left, width: this.props.width, mode: MODE_NONE , width2: this.props.width2};
   }
 
   onCreateLinkMouseDown = (e, position) => {
@@ -57,6 +57,7 @@ export default class DataTask extends Component {
   dragProcess(x) {
     let delta = this.draggingPosition - x;
     let newLeft = this.state.left;
+    let newidth2 = this.state.width2;
     let newWidth = this.state.width;
 
     switch (this.state.mode) {
@@ -65,9 +66,11 @@ export default class DataTask extends Component {
         break;
       case MOVE_RESIZE_LEFT:
         newLeft = this.state.left - delta;
+        newidth2 = this.state.width2 + delta;
         newWidth = this.state.width + delta;
         break;
       case MOVE_RESIZE_RIGHT:
+        newidth2 = this.state.width2 - delta;
         newWidth = this.state.width - delta;
         break;
     }
@@ -77,12 +80,13 @@ export default class DataTask extends Component {
       position: { start: newLeft - this.props.nowposition, end: newLeft + newWidth - this.props.nowposition }
     };
     this.props.onTaskChanging(changeObj);
-    this.setState({ left: newLeft, width: newWidth });
+    this.setState({ left: newLeft, width: newWidth, width2: newidth2});
     this.draggingPosition = x;
   }
   dragEnd() {
     this.props.onChildDrag(false);
     let new_start_date = DateHelper.pixelToDate(this.state.left, this.props.nowposition, this.props.dayWidth);
+    let new_end_date2 = DateHelper.pixelToDate(this.state.left + this.state.width, this.state.width2, this.props.nowposition, this.props.dayWidth);
     let new_end_date = DateHelper.pixelToDate(this.state.left + this.state.width, this.props.nowposition, this.props.dayWidth);
     this.props.onUpdateTask(this.props.item, { start: new_start_date, end: new_end_date });
     this.setState({ dragging: false, mode: MODE_NONE });
@@ -140,9 +144,30 @@ export default class DataTask extends Component {
       return { ...configStyle, backgroundColor, left: this.props.left, width: this.props.width, height: this.props.height - 5, top: 2 };
     }
   }
+
+  calculateRestStyle() {
+    let configStyle = this.props.isSelected ? Config.values.dataViewPort.task.selectedStyle : Config.values.dataViewPort.task.style;
+    let backgroundColor = this.props.color ? this.props.color : configStyle.backgroundColor;
+
+    if (this.state.dragging) {
+      return {
+        ...configStyle,
+        backgroundColor: backgroundColor,
+        left: this.state.left + this.state.width,
+        width: this.state.width2,
+        height: this.props.height - 5,
+        top: 2
+      };
+    } else {
+      return { ...configStyle, backgroundColor, left: this.props.left + this.props.width, width: this.props.width2, height: this.props.height - 5, top: 2 };
+    }
+  }
+
   render() {
     let style = this.calculateStyle();
+    let restStyle = this.calculateRestStyle();
     return (
+      <>
       <div
         onMouseDown={(e) => this.doMouseDown(e, MODE_MOVE)}
         onTouchStart={(e) => this.doTouchStart(e, MODE_MOVE)}
@@ -151,6 +176,7 @@ export default class DataTask extends Component {
         }}
         style={style}
       >
+        
         <div
           className="timeLine-main-data-task-side"
           style={{ top: 0, left: -4, height: style.height }}
@@ -177,6 +203,15 @@ export default class DataTask extends Component {
           />
         </div>
       </div>
+      <div
+        onMouseDown={(e) => this.doMouseDown(e, MODE_MOVE)}
+        onTouchStart={(e) => this.doTouchStart(e, MODE_MOVE)}
+        onClick={(e) => {
+          this.props.onSelectItem(this.props.item);
+        }}
+        style={restStyle}
+      />
+      </>
     );
   }
 }
