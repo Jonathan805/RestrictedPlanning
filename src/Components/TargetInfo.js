@@ -1,7 +1,4 @@
 import React, { Component } from 'react'
-import Container from 'react-bootstrap/esm/Container';
-import Row from 'react-bootstrap/esm/Row';
-import Col from 'react-bootstrap/esm/Col';
 import Button from 'react-bootstrap/Button'
 import PopoverWrapper from './PopoverWrapper';
 import TimeLine from 'react-gantt-timeline';
@@ -81,7 +78,7 @@ class TargetInfo extends Component{
   };
   
   getbuttonStyle(value) {
-    return this.state.timelineMode == value ? { backgroundColor: 'grey', boder: 'solid 1px #223344' } : {};
+    return this.state.timelineMode === value ? { backgroundColor: 'grey', boder: 'solid 1px #223344' } : {};
   }
   
   modeChange = (value) => {
