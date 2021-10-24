@@ -4,9 +4,6 @@ import Config from '../../helpers/config/Config';
 const SSHAPE_SIDE_WIDTH = 20;
 
 class Link extends Component {
-  constructor(props) {
-    super(props);
-  }
 
   calcNormCoordinates = () => {
     let cpt1 = { x: 0, y: 0 };

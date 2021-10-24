@@ -20,7 +20,7 @@ export default class LinkViewPort extends Component {
         item={link}
         start={{ x: startPosition.x, y: startPosition.y }}
         end={{ x: endPosition.x, y: endPosition.y }}
-        isSelected={this.props.selectedItem == link}
+        isSelected={this.props.selectedItem === link}
         onSelectItem={this.props.onSelectItem}
       />
     );
@@ -37,7 +37,7 @@ export default class LinkViewPort extends Component {
     let renderLinks = {};
     let startItem,
       endItem = {};
-    if (this.state.data.length == 0) return;
+    if (this.state.data.length === 0) return;
     for (let i = 0; i < this.state.links.length; i++) {
       let link = this.state.links[i];
       if (!link) if (renderLinks[link.id]) continue;
@@ -59,15 +59,16 @@ export default class LinkViewPort extends Component {
 
   refreshData() {
     if (
-      this.props.links != this.state.links ||
-      this.props.data != this.state.data ||
-      this.props.dayWidth != this.state.dayWidth ||
-      this.props.selectedItem != this.state.selectedItem
+      this.props.links !== this.state.links ||
+      this.props.data !== this.state.data ||
+      this.props.dayWidth !== this.state.dayWidth ||
+      this.props.selectedItem !== this.state.selectedItem
     ) {
-      this.state.selectedItem = this.props.selectedItem;
-      this.state.dayWidth = this.props.dayWidth;
-      this.state.links = this.props.links;
-      this.state.data = this.props.data;
+      this.setState({
+        selectedItem : this.props.selectedItem, 
+        dayWidth : this.props.dayWidth,
+        links:this.props.links,
+        data: this.props.data});
       if (this.state.links && this.state.data) this.renderLinks();
     }
   }
@@ -81,7 +82,7 @@ export default class LinkViewPort extends Component {
   };
 
   renderChangingTaskLinks = () => {
-    if (this.props.changingTask != this.state.changingTask) {
+    if (this.props.changingTask !== this.state.changingTask) {
       this.state.changingTask = this.props.changingTask;
       //Get Links from task
       let links = Registry.getLinks(this.state.changingTask.item.id);
@@ -98,9 +99,9 @@ export default class LinkViewPort extends Component {
         endItem = Registry.getTask(item.link.end);
         if (!endItem) continue;
         startPosition = this.getItemPosition(startItem.index, startItem.item.end);
-        if (this.state.changingTask.item.id == item.link.start) startPosition.x = this.state.changingTask.position.end;
+        if (this.state.changingTask.item.id === item.link.start) startPosition.x = this.state.changingTask.position.end;
         endPosition = this.getItemPosition(endItem.index, endItem.item.start);
-        if (this.state.changingTask.item.id == item.link.end) endPosition.x = this.state.changingTask.position.start;
+        if (this.state.changingTask.item.id === item.link.end) endPosition.x = this.state.changingTask.position.start;
 
         this.cache[item.index] = (
           <Link
@@ -108,7 +109,7 @@ export default class LinkViewPort extends Component {
             item={item}
             start={{ x: startPosition.x, y: startPosition.y }}
             end={{ x: endPosition.x, y: endPosition.y }}
-            isSelected={this.props.selectedItem == item}
+            isSelected={this.props.selectedItem === item}
             onSelectItem={this.props.onSelectItem}
           />
         );

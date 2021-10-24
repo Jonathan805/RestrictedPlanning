@@ -3,19 +3,12 @@ import Config from '../../helpers/config/Config';
 import ContentEditable from '../../components/common/ContentEditable';
 
 export class VerticalLine extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     return <div className="timeLine-main-data-verticalLine" style={{ left: this.props.left }} />;
   }
 }
 
 export class TaskRow extends Component {
-  constructor(props) {
-    super(props);
-  }
 
   onChange = (value) => {
     if (this.props.onUpdateTask) {
@@ -47,9 +40,6 @@ export class TaskRow extends Component {
 }
 
 export default class TaskList extends Component {
-  constructor(props) {
-    super(props);
-  }
 
   getContainerStyle(rows) {
     let new_height = rows > 0 ? rows * this.props.itemheight : 10;
@@ -69,7 +59,7 @@ export default class TaskList extends Component {
           label={item.name}
           top={i * this.props.itemheight}
           itemheight={this.props.itemheight}
-          isSelected={this.props.selectedItem == item}
+          isSelected={this.props.selectedItem === item}
           onUpdateTask={this.props.onUpdateTask}
           onSelectItem={this.props.onSelectItem}
           nonEditable={this.props.nonEditable}
