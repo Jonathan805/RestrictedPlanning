@@ -56,7 +56,7 @@ const CreateTarget = ({createTarget}) => {
                 <label>Lattitude</label>
                 <br/>
                 <input type='text' 
-                placeholder='21°21 44.9\"N'
+                placeholder='ex. 21°21 44.9\"N'
                 value={latitude} 
                 onChange={(e) => setLatitude(e.target.value)}/>
             </div>
@@ -64,20 +64,21 @@ const CreateTarget = ({createTarget}) => {
                 <label>Longitude</label>
                 <br/>
                 <input type='text' 
+                placeholder='ex. 21°21 44.9\"N'
                 value={longitude} 
                 onChange={(e) => setLongitude(e.target.value)}/>
             </div>
             <div clasName='form-control'>
                 <label>Elevation</label>
                 <br/>
-                <input type='text' placeholder='0 MSL'
+                <input type='text' placeholder='ex. 0 MSL'
                 value={elevation} 
                 onChange={(e) => setElevation(e.target.value)}/>
             </div>
             <div clasName='form-control'>
                 <label>Success Rate (Auto-Calc later)</label>
                 <br/>
-                <input type='text' placeholder='0.75'
+                <input type='text' placeholder='ex. 0.75'
                 value={successRate} 
                 onChange={(e) => setSuccessRate(e.target.value)}/>
             </div>

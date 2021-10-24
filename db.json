@@ -39,6 +39,22 @@
       "elevation": "xcvxcv",
       "successRate": "xcvxc",
       "id": 5
+    },
+    {
+      "name": "gdf",
+      "latitude": "dfgdf",
+      "longitude": "dfgdf",
+      "elevation": "dfg",
+      "successRate": "dfgdf",
+      "id": 6
+    },
+    {
+      "name": "fghfgh",
+      "latitude": "fgh",
+      "longitude": "gfhfg",
+      "elevation": "fghfg",
+      "successRate": "fghfg",
+      "id": 7
     }
   ]
 }
