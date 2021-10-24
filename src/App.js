@@ -1,4 +1,5 @@
 import React, { Component } from "react"
+import { useState, useEffect} from 'react'
 import './App.css';
 import Nav from "./Components/Navbar";
 import Inventory from "./Components/Inventory";
@@ -16,6 +17,8 @@ import F35 from './AircraftImages/F35.png';
 import B2 from './AircraftImages/B2.png';
 import FA18F from './AircraftImages/FA-18A.png';
 import ToastMessage from "./Components/ToastMessage";
+import TaskList from "./Components/CustomTimeline/components/taskList/TaskList";
+import { DataViewPort } from "./Components/CustomTimeline/components/viewport/DataViewPort";
 
 
 
@@ -25,6 +28,24 @@ class App extends Component {
   }
 
   Toast = () => {<ToastMessage/>}
+
+
+  createTarget = async (task) => {
+    
+    const res = await fetch('http://localhost:5000/targets', {
+      method: 'POST',
+      headers: {
+        'Content-type' : 'application/json'
+      },
+      body: JSON.stringify(task)
+    })
+
+    const data = await res.json()
+
+    //setTasks([...task, data])
+    //console.log(task)
+    alert(JSON.stringify(data))
+  }
 
   render() {
     return (
@@ -96,7 +117,7 @@ class App extends Component {
             </section>
             <br/>
             <section className="section-top">
-              <CreateTarget />
+              <CreateTarget createTarget={this.createTarget}/>
             </section>
           </section>
 

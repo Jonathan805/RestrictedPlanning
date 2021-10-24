@@ -1,0 +1,44 @@
+{
+  "targets": [
+    {
+      "id": 1,
+      "name": "Target 1",
+      "latitude": "21",
+      "longitude": "23",
+      "elevation": "1 MIL",
+      "successRate": "0.25"
+    },
+    {
+      "name": "fghnb",
+      "latitude": "fghfgh",
+      "longitude": "fghfg",
+      "elevation": "fghfgh",
+      "successRate": "fgh",
+      "id": 2
+    },
+    {
+      "name": "dfs",
+      "latitude": "sdfsd",
+      "longitude": "sdfsd",
+      "elevation": "sdfsd",
+      "successRate": "sdfdsf",
+      "id": 3
+    },
+    {
+      "name": "sdfdsf",
+      "latitude": "dsfsdf",
+      "longitude": "sdfsdf",
+      "elevation": "sdfsdf",
+      "successRate": "sdfsdf",
+      "id": 4
+    },
+    {
+      "name": "cvc",
+      "latitude": "cvxcv",
+      "longitude": "xcvx",
+      "elevation": "xcvxcv",
+      "successRate": "xcvxc",
+      "id": 5
+    }
+  ]
+}
