@@ -318,7 +318,6 @@ class TimeLine2 extends Component {
   render() {
     this.checkMode();
     this.checkNeeeData();
-    console.log('On render')
     if(!this.state.size){
       console.log(this.state)
     }

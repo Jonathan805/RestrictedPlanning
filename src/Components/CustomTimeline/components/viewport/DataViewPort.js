@@ -40,11 +40,10 @@ export class DataViewPort extends Component {
       let item = this.props.data[i];
       if (!item) break;
       //FIXME PAINT IN BOUNDARIES
-      
       // | new_position ----(color)----- <new_width> END | ---- (color2)----- <new-width2> ----- REST_END |
       let new_position = DateHelper.dateToPixel(item.start, this.props.nowposition, this.props.dayWidth);
       let new_width = DateHelper.dateToPixel(item.end, this.props.nowposition, this.props.dayWidth) - new_position;
-      let new_width2 = DateHelper.dateToPixel(item.restEndTime, this.props.nowposition, this.props.dayWidth) - new_position - new_width;
+      let new_width2 = DateHelper.dateToPixel(item.restEnd, this.props.nowposition, this.props.dayWidth) - new_position - new_width;
       result.push(
         <DataRow key={i} label={item.name} top={i * this.props.itemheight} left={20} itemheight={this.props.itemheight}>
           <DataTask

@@ -8,7 +8,11 @@ export default class DataTask extends Component {
   constructor(props) {
     super(props);
     this.calculateStyle = this.calculateStyle.bind(this);
-    this.state = { dragging: false, left: this.props.left, width: this.props.width, mode: MODE_NONE , width2: this.props.width2};
+    this.state = { dragging: false, 
+                   left: this.props.left, 
+                   width: this.props.width, 
+                   mode: MODE_NONE , 
+                   width2: this.props.width2};
   }
 
   onCreateLinkMouseDown = (e, position) => {
@@ -57,20 +61,15 @@ export default class DataTask extends Component {
   dragProcess(x) {
     let delta = this.draggingPosition - x;
     let newLeft = this.state.left;
-    let newidth2 = this.state.width2;
     let newWidth = this.state.width;
-
     switch (this.state.mode) {
       case MODE_MOVE:
         newLeft = this.state.left - delta;
         break;
       case MOVE_RESIZE_LEFT:
         newLeft = this.state.left - delta;
-        newidth2 = this.state.width2 + delta;
-        newWidth = this.state.width + delta;
         break;
       case MOVE_RESIZE_RIGHT:
-        newidth2 = this.state.width2 - delta;
         newWidth = this.state.width - delta;
         break;
     }
@@ -80,15 +79,18 @@ export default class DataTask extends Component {
       position: { start: newLeft - this.props.nowposition, end: newLeft + newWidth - this.props.nowposition }
     };
     this.props.onTaskChanging(changeObj);
-    this.setState({ left: newLeft, width: newWidth, width2: newidth2});
+    this.setState({ left: newLeft, width: newWidth});
     this.draggingPosition = x;
   }
   dragEnd() {
+
     this.props.onChildDrag(false);
     let new_start_date = DateHelper.pixelToDate(this.state.left, this.props.nowposition, this.props.dayWidth);
-    let new_end_date2 = DateHelper.pixelToDate(this.state.left + this.state.width, this.state.width2, this.props.nowposition, this.props.dayWidth);
     let new_end_date = DateHelper.pixelToDate(this.state.left + this.state.width, this.props.nowposition, this.props.dayWidth);
-    this.props.onUpdateTask(this.props.item, { start: new_start_date, end: new_end_date });
+    let new_end_date2 = DateHelper.pixelToDate(this.state.left + this.state.width + this.state.width2, this.props.nowposition,this.props.dayWidth);
+    console.log (new_end_date2);
+    console.log(this.props.item.restEnd);
+    this.props.onUpdateTask(this.props.item, { start: new_start_date, end: new_end_date , restEnd:new_end_date2});
     this.setState({ dragging: false, mode: MODE_NONE });
   }
 
@@ -147,7 +149,7 @@ export default class DataTask extends Component {
 
   calculateRestStyle() {
     let configStyle = this.props.isSelected ? Config.values.dataViewPort.task.selectedStyle : Config.values.dataViewPort.task.style;
-    let backgroundColor = this.props.color ? this.props.color : configStyle.backgroundColor;
+    let backgroundColor = this.props.color2 ? this.props.color2 : configStyle.backgroundColor;
 
     if (this.state.dragging) {
       return {
@@ -210,7 +212,7 @@ export default class DataTask extends Component {
           this.props.onSelectItem(this.props.item);
         }}
         style={restStyle}
-      />
+      >Rest</div>
       </>
     );
   }

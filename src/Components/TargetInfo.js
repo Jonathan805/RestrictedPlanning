@@ -28,7 +28,7 @@ class TargetInfo extends Component{
           end:  new Date(sortie.endTime),
           restEnd: new Date(sortie.restEndTime),
           name: sortie.tail,
-          color: this.getPurpleColor(),
+          color: this.getSortieColor(),
           color2: this.getRestColor()
         }
       )// end push
@@ -47,24 +47,23 @@ class TargetInfo extends Component{
     let result = this.data.filter((item) => {
       return (item.start < start && item.end > end) || (item.start > start && item.start < end) || (item.end > start && item.end < end);
     });
-    console.log('Calculating ');
     this.setState({ data: result });
   };
   
   onSelectItem = (item) => {
-    console.log(`Select Item ${item}`);
     this.setState({ selectedItem: item });
   };
   
   onUpdateTask = (item, props) => {
     item.start = props.start;
     item.end = props.end;
+    item.restEnd = props.restEnd;
     let difference = (item.end - item.start) / 1000 / 60 / 60;
     if (difference > 4){
-      item.color = this.getRedColor();
+      item.color = this.getInvalidColor();
     }
     else{
-      item.color = this.getPurpleColor();
+      item.color = this.getSortieColor();
     }   
     this.setState({ data: [...this.state.data] });
   };
@@ -76,7 +75,6 @@ class TargetInfo extends Component{
   onCreateLink = (item) => {
     let newLink = Generator.createLink(item.start, item.end);
     this.setState({ links: [...this.state.links, newLink] });
-    console.log(`Update Item ${item}`);
   };
   
   getbuttonStyle(value) {
@@ -100,16 +98,16 @@ class TargetInfo extends Component{
     return result;
   }
 
-  getRedColor(){
+  getInvalidColor(){
     return "#FF0000";
   }
 
-  getPurpleColor()  {
+  getSortieColor()  {
     return 	"#4B0082";
   }
 
   getRestColor(){
-    return "#FFD700";
+    return "#000000";
   }
 
    
