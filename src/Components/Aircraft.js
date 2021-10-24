@@ -1,5 +1,7 @@
 /*Aircraft object placed in card*/
 
+//import { propTypes } from "react-bootstrap/esm/Image"
+
 const Aircraft = ({aircraftName, image}) => {
     return (
         <p>{aircraftName}
@@ -16,5 +18,16 @@ const Aircraft = ({aircraftName, image}) => {
         </p>
     )
 }
+
+Aircraft.defaultProps = {
+    aircraftName: 'Airplane'
+}
+
+/*
+Aircraft.propTypes = {
+    aircraftName: propTypes.string.isRequired,
+    image: propTypes.string.isRequired
+}
+*/
 
 export default Aircraft

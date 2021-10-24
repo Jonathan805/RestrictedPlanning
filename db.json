@@ -55,6 +55,14 @@
       "elevation": "fghfg",
       "successRate": "fghfg",
       "id": 7
+    },
+    {
+      "name": "Poopoo",
+      "latitude": "21.449",
+      "longitude": "21.44.9",
+      "elevation": "MSL",
+      "successRate": "0.00",
+      "id": 8
     }
   ]
 }

@@ -9,17 +9,22 @@ import TargetList from "./Components/TargetList";
 
 import CreateTarget from './Components/CreateTarget';
 
-import Board from './Components/Board';
-import Card from "./Components/Card";
-
-import Growler from './AircraftImages/Growler.png';
-import F35 from './AircraftImages/F35.png';
-import B2 from './AircraftImages/B2.png';
-import FA18F from './AircraftImages/FA-18A.png';
 import ToastMessage from "./Components/ToastMessage";
 import TaskList from "./Components/CustomTimeline/components/taskList/TaskList";
 import { DataViewPort } from "./Components/CustomTimeline/components/viewport/DataViewPort";
+
+// Components for click and drag Aircraft selections
+import Board from './Components/Board';
+import Card from "./Components/Card";
 import Aircraft from "./Components/Aircraft";
+import Growler from './AircraftImages/Growler.png';
+import FA18F from './AircraftImages/FA-18A.png';
+import F35 from './AircraftImages/F35.png';
+import B2 from './AircraftImages/B2.png';
+
+// Components for creating Targets
+import Header from './Components/Header';
+import Targets from './Components/Targets';
 
 
 
@@ -62,11 +67,9 @@ class App extends Component {
               <Card id="Aircraft-2" className="aircraft" draggable="true">
                 <Aircraft aircraftName='FA-18F (Hornet)' image={FA18F} />
               </Card>
-
               <Card id="Aircraft-3" className="aircraft" draggable="true">
                 <Aircraft aircraftName='F35' image={F35} />
               </Card>
-
               <Card id="Aircraft-4" className="aircraft" draggable="true">
                 <Aircraft aircraftName='B2' image={B2} />
               </Card>
@@ -87,7 +90,9 @@ class App extends Component {
             </section>
             <br />
             <section className="section-top">
+              <Header />
               <CreateTarget createTarget={this.createTarget} />
+              <Targets/>
             </section>
           </section>
 
