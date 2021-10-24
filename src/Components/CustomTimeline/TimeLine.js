@@ -11,6 +11,7 @@ import { VIEW_MODE_DAY, VIEW_MODE_WEEK, VIEW_MODE_MONTH, VIEW_MODE_YEAR } from '
 import { DAY_MONTH_MODE, DAY_WEEK_MODE, DAY_DAY_MODE, DAY_YEAR_MODE } from './Const';
 import DataController from './controller/DataController';
 import Config from './helpers/config/Config';
+import DateHelper from './helpers/DateHelper';
 import './TimeLine.css';
 
 class TimeLine2 extends Component {
@@ -102,7 +103,7 @@ class TimeLine2 extends Component {
   /////////////////////////
 
   verticalChange = (scrollTop) => {
-    if (scrollTop === this.state.scrollTop) return;
+    if (scrollTop == this.state.scrollTop) return;
     //Check if we have scrolling rows
     let rowInfo = this.calculateStartEndRows(this.state.numVisibleRows, this.props.data, scrollTop);
     if (rowInfo.start !== this.state.start) {
@@ -249,7 +250,7 @@ class TimeLine2 extends Component {
   /////////////////////
 
   onSelectItem = (item) => {
-    if (this.props.onSelectItem && item !== this.props.selectedItem) this.props.onSelectItem(item);
+    if (this.props.onSelectItem && item != this.props.selectedItem) this.props.onSelectItem(item);
   };
 
   onStartCreateLink = (task, position) => {
@@ -263,7 +264,7 @@ class TimeLine2 extends Component {
   onFinishCreateLink = (task, position) => {
     console.log(`End Link ${task}`);
     if (this.props.onCreateLink && task &&
-      this.state.taskToCreate &&this.state.taskToCreate.task.id!==task.id) {
+      this.state.taskToCreate &&this.state.taskToCreate.task.id!=task.id) {
       this.props.onCreateLink({
         start: this.state.taskToCreate,
         end: { task: task, position: position }
@@ -285,7 +286,7 @@ class TimeLine2 extends Component {
     return Math.ceil(size.width / this.state.dayWidth) + BUFFER_DAYS;
   };
   checkMode() {
-    if (this.props.mode !== this.state.mode && this.props.mode) {
+    if (this.props.mode != this.state.mode && this.props.mode) {
       this.state.mode = this.props.mode;
       let newDayWidth = this.getDayWidth(this.state.mode);
       this.state.dayWidth = newDayWidth;
@@ -295,7 +296,7 @@ class TimeLine2 extends Component {
       //And we calculate how many times we have scroll
       let scrollTime = Math.ceil((-this.state.currentday * this.state.dayWidth) / this.pxToScroll);
       //We readjust now postion to the new number of scrolls
-      this.setState( {nowposition: scrollTime * this.pxToScroll});
+      this.state.nowposition = scrollTime * this.pxToScroll;
       let scrollLeft = (this.state.currentday * this.state.dayWidth + this.state.nowposition) % this.pxToScroll;
       // we recalculate the new scroll Left value
       this.state.scrollLeft = scrollLeft;

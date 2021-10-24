@@ -73,8 +73,6 @@ export default class DataTask extends Component {
       case MOVE_RESIZE_RIGHT:
         newWidth = this.state.width - delta;
         break;
-      default:
-        break;
     }
     //the coordinates need to be global
     let changeObj = {

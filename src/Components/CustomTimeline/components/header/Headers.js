@@ -7,7 +7,9 @@ import DateHelper from '../../helpers/DateHelper';
 import './Header.css';
 
 export class HeaderItem extends PureComponent {
-
+  constructor(props) {
+    super(props);
+  }
   render() {
     return (
       <div
@@ -39,10 +41,10 @@ export default class Header extends PureComponent {
       case 'year':
         return 'YYYY';
       case 'month':
-        if (position === 'top') return 'MMMM YYYY';
+        if (position == 'top') return 'MMMM YYYY';
         else return 'MMMM';
       case 'week':
-        if (position === 'top') return 'ww MMMM YYYY';
+        if (position == 'top') return 'ww MMMM YYYY';
         else return 'ww';
       case 'dayweek':
         return 'dd';
@@ -86,7 +88,7 @@ export default class Header extends PureComponent {
     let hourWidth = width / 24;
     let iterLeft = 0;
     for (let i = 0; i < 24; i++) {
-      result.push(<HeaderItem key={i} left={iterLeft} width={hourWidth} label={mode === 'shorttime' ? i : `${i}:00`} />);
+      result.push(<HeaderItem key={i} left={iterLeft} width={hourWidth} label={mode == 'shorttime' ? i : `${i}:00`} />);
       iterLeft = iterLeft + hourWidth;
     }
     return (
@@ -124,25 +126,25 @@ export default class Header extends PureComponent {
     for (let i = start - BUFFER_DAYS; i < end + BUFFER_DAYS; i++) {
       //The unit of iteration is day
       currentDate = moment().add(i, 'days');
-      if (currentTop !== currentDate.format(this.getFormat(top, 'top'))) {
+      if (currentTop != currentDate.format(this.getFormat(top, 'top'))) {
         currentTop = currentDate.format(this.getFormat(top, 'top'));
         box = this.getBox(currentDate, top, lastLeft.top);
         lastLeft.top = box.left + box.width;
         result.top.push(<HeaderItem key={i} left={box.left} width={box.width} label={currentTop} />);
       }
 
-      if (currentMiddle !== currentDate.format(this.getFormat(middle))) {
+      if (currentMiddle != currentDate.format(this.getFormat(middle))) {
         currentMiddle = currentDate.format(this.getFormat(middle));
         box = this.getBox(currentDate, middle, lastLeft.middle);
         lastLeft.middle = box.left + box.width;
         result.middle.push(<HeaderItem key={i} left={box.left} width={box.width} label={currentMiddle} />);
       }
 
-      if (currentBottom !== currentDate.format(this.getFormat(bottom))) {
+      if (currentBottom != currentDate.format(this.getFormat(bottom))) {
         currentBottom = currentDate.format(this.getFormat(bottom));
         box = this.getBox(currentDate, bottom, lastLeft.bottom);
         lastLeft.bottom = box.left + box.width;
-        if (bottom === 'shorttime' || bottom === 'fulltime') {
+        if (bottom == 'shorttime' || bottom == 'fulltime') {
           result.bottom.push(this.renderTime(box.left, box.width, bottom, i));
         } else {
           result.bottom.push(<HeaderItem key={i} left={box.left} width={box.width} label={currentBottom} />);
@@ -175,8 +177,6 @@ export default class Header extends PureComponent {
         return this.renderHeaderRows('month', 'dayweek', 'daymonth');
       case VIEW_MODE_YEAR:
         return this.renderHeaderRows('year', 'month', 'week');
-      default:
-          return this.renderHeaderRows('week', 'dayweek', 'fulltime');
     }
   };
 

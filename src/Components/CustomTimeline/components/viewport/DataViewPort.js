@@ -6,6 +6,9 @@ import sizeMe from 'react-sizeme';
 import Config from '../../helpers/config/Config';
 
 export class DataRow extends Component {
+  constructor(props) {
+    super(props);
+  }
   render() {
     return (
       <div
@@ -55,7 +58,7 @@ export class DataViewPort extends Component {
             width={new_width}
             height={this.props.itemheight}
             onChildDrag={this.onChildDrag}
-            isSelected={this.props.selectedItem === item}
+            isSelected={this.props.selectedItem == item}
             onSelectItem={this.props.onSelectItem}
             onStartCreateLink={this.props.onStartCreateLink}
             onFinishCreateLink={this.props.onFinishCreateLink}

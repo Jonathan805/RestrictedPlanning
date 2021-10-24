@@ -31,7 +31,7 @@ class Registry{
     createAddTo(id,list,value,index){
         if (!list[id])
             list[id]=[]
-        if (list[id].indexOf(value)===-1)
+        if (list[id].indexOf(value)==-1)
             list[id].push(value)
     }
 
