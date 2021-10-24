@@ -88,8 +88,6 @@ export default class DataTask extends Component {
     let new_start_date = DateHelper.pixelToDate(this.state.left, this.props.nowposition, this.props.dayWidth);
     let new_end_date = DateHelper.pixelToDate(this.state.left + this.state.width, this.props.nowposition, this.props.dayWidth);
     let new_end_date2 = DateHelper.pixelToDate(this.state.left + this.state.width + this.state.width2, this.props.nowposition,this.props.dayWidth);
-    console.log (new_end_date2);
-    console.log(this.props.item.restEnd);
     this.props.onUpdateTask(this.props.item, { start: new_start_date, end: new_end_date , restEnd:new_end_date2});
     this.setState({ dragging: false, mode: MODE_NONE });
   }

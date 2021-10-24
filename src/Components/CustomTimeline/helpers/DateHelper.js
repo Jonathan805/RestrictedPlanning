@@ -16,7 +16,6 @@ class DateHelper {
     let pixelsFromNow = position - nowposition;
     let today = this.getToday();
     let milisecondsFromNow = today.getTime() + pixelsFromNow * hoursInPixel * MIL_IN_HOUR;
-    console.log(milisecondsFromNow);
     let result = new Date(milisecondsFromNow);
     let lightSavingDiff = (result.getTimezoneOffset() - today.getTimezoneOffset()) * 60 * 1000;
     result.setTime(result.getTime() + lightSavingDiff);
