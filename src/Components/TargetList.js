@@ -9,9 +9,7 @@ state = {
   }
 
  handleDrop = (targetsFile) => {
-   console.log("handling drop");
     let targets = this.state.targets
-    console.log(targetsFile.length);
     for (var i = 0; i < targetsFile.length; i++) {
       if (!targetsFile[i].name) return
       var reader = new FileReader();

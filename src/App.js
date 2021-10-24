@@ -91,7 +91,7 @@ class App extends Component {
           <section className="section-right">
             <section className="section-top">
               <Row>
-                <TargetList toast={this.Toast}/>
+                <TargetList/>
               </Row>
             </section>
             <br/>

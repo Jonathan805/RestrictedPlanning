@@ -110,10 +110,6 @@ class TargetInfo extends Component{
     return "#000000";
   }
   
-  showToast = () => {
-    console.log(this.props.Toast);
-    //this.props.Toast.showMessage("Test", "Test");
-  }
    
   render() {
     let config = {
@@ -195,7 +191,7 @@ class TargetInfo extends Component{
                                     imagery={this.target.targetImage} 
                                     buttonText="See Imagery"/>
         </div>
-        <div><Button onClick={this.showToast}>Generate Route</Button></div>
+        <div><Button>Generate Route</Button></div>
       </div>
       </div>
       );
