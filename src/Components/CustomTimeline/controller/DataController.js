@@ -1,4 +1,4 @@
-import DateHelper from 'libs/helpers/DateHelper';
+import DateHelper from '../helpers/DateHelper';
 const HORIZON_BUFFER = 1000;
 const HORIZON_BUFFER_ALERT = 750;
 

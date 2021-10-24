@@ -1,9 +1,9 @@
 import React, { PureComponent } from 'react';
 import moment from 'moment';
-import { BUFFER_DAYS, DATA_CONTAINER_WIDTH } from 'libs/Const';
-import { VIEW_MODE_DAY, VIEW_MODE_WEEK, VIEW_MODE_MONTH, VIEW_MODE_YEAR } from 'libs/Const';
-import Config from 'libs/helpers/config/Config';
-import DateHelper from 'libs/helpers/DateHelper';
+import { BUFFER_DAYS, DATA_CONTAINER_WIDTH } from '../../Const';
+import { VIEW_MODE_DAY, VIEW_MODE_WEEK, VIEW_MODE_MONTH, VIEW_MODE_YEAR } from '../../Const';
+import Config from '../../helpers/config/Config';
+import DateHelper from '../../helpers/DateHelper';
 import './Header.css';
 
 export class HeaderItem extends PureComponent {

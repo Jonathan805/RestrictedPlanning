@@ -11,22 +11,38 @@ class Inventory extends Component{
 
 getPilots = () => {
   const numPilots = [...Array(21).keys()];
-  return numPilots.map((number)=> <NavDropdown.Item>Pilot {number}</NavDropdown.Item>);  
+  return numPilots.map((number)=> <NavDropdown.Item>Pilot {number+1}</NavDropdown.Item>);  
 }
 
 getPlanes = () => {
-  const planes = ["FA-18E","FA-18E","FA-18E","FA-18F","FA-18F","FA-18F","FA-18F", "EA-18G", "EA-18G", "EA-18G", "EA-18G", "EA-18G"];
+  const planes = ["FA-18E",
+                  "FA-18E",
+                  "FA-18E",
+                  "FA-18F",
+                  "FA-18F",
+                  "FA-18F",
+                  "FA-18F", 
+                  "EA-18G", 
+                  "EA-18G",
+                  "EA-18G", 
+                  "EA-18G", 
+                  "EA-18G"];
   return planes.map((plane)=> <NavDropdown.Item>{plane}</NavDropdown.Item>);  
 }
 
 getWeapons = () => {
-  const numPilots = ["AGM-183A"];
-  return numPilots.map((number)=> <NavDropdown.Item>{number}</NavDropdown.Item>);  
+  const numWeapons = ["AGM-183A"];
+  return numWeapons.map((number)=> <NavDropdown.Item>{number}</NavDropdown.Item>);  
 }
 
 getShips = () => {
-  const numPilots = [...Array(3).keys()];
-  return numPilots.map((number)=> <NavDropdown.Item>Ship {number}</NavDropdown.Item>);  
+  const numsShips = [...Array(3).keys()];
+  return numsShips.map((number)=> <NavDropdown.Item>Ship {number+1}</NavDropdown.Item>);  
+}
+
+getHelos = () => {
+  const numHelos = [...Array(4).keys()];
+  return numHelos.map((number)=> <NavDropdown.Item>Helo {number+1}</NavDropdown.Item>);  
 }
 
 render(){
@@ -55,6 +71,11 @@ return(<Navbar bg="dark" variant="dark" expand="lg" fixed="bottom">
                    id="basic-nav-dropdown" 
                    drop="up">
         {this.getShips()}
+      </HoverDropdown>
+      <HoverDropdown title="Helos" 
+                   id="basic-nav-dropdown" 
+                   drop="up">
+        {this.getHelos()}
       </HoverDropdown>
     </Nav>
   </Navbar.Collapse>

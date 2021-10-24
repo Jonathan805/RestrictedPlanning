@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Link from 'libs/components/links/Link';
+import Link from './Link';
 
 export default class CreateLink extends Component {
   constructor(props) {

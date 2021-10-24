@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { DATA_CONTAINER_WIDTH } from 'libs/Const';
-import DataTask from 'libs/components/viewport/DataTask';
-import DateHelper from 'libs/helpers/DateHelper';
+import { DATA_CONTAINER_WIDTH } from '../../Const';
+import DataTask from './DataTask';
+import DateHelper from '../../helpers/DateHelper';
 import sizeMe from 'react-sizeme';
-import Config from 'libs/helpers/config/Config';
+import Config from '../../helpers/config/Config';
 
 export class DataRow extends Component {
   constructor(props) {

@@ -1,6 +1,6 @@
 export class Weapon{
 
   getData()  {
-
-  }
+ 
+  } 
 }

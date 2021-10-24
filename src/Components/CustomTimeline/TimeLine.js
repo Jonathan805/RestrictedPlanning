@@ -1,20 +1,20 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import VerticalSpliter from 'libs/components/taskList/VerticalSpliter';
-import Header from 'libs/components/header/Headers';
-import DataViewPort from 'libs/components/viewport/DataViewPort';
-import LinkViewPort from 'libs/components/links/LinkViewPort';
-import TaskList from 'libs/components/taskList/TaskList';
-import Registry from 'libs/helpers/registry/Registry';
-import { BUFFER_DAYS, DATA_CONTAINER_WIDTH } from 'libs/Const';
-import { VIEW_MODE_DAY, VIEW_MODE_WEEK, VIEW_MODE_MONTH, VIEW_MODE_YEAR } from 'libs/Const';
-import { DAY_MONTH_MODE, DAY_WEEK_MODE, DAY_DAY_MODE, DAY_YEAR_MODE } from 'libs/Const';
-import DataController from 'libs/controller/DataController';
-import Config from 'libs/helpers/config/Config';
-import DateHelper from 'libs/helpers/DateHelper';
+import VerticalSpliter from './components/taskList/VerticalSpliter';
+import Header from './components/header/Headers';
+import DataViewPort from './components/viewport/DataViewPort';
+import LinkViewPort from './components/links/LinkViewPort';
+import TaskList from './components/taskList/TaskList';
+import Registry from './helpers/registry/Registry';
+import { BUFFER_DAYS, DATA_CONTAINER_WIDTH } from './Const';
+import { VIEW_MODE_DAY, VIEW_MODE_WEEK, VIEW_MODE_MONTH, VIEW_MODE_YEAR } from './Const';
+import { DAY_MONTH_MODE, DAY_WEEK_MODE, DAY_DAY_MODE, DAY_YEAR_MODE } from './Const';
+import DataController from './controller/DataController';
+import Config from './helpers/config/Config';
+import DateHelper from './helpers/DateHelper';
 import './TimeLine.css';
 
-class TimeLine extends Component {
+class TimeLine2 extends Component {
   constructor(props) {
     super(props);
     this.dragging = false;
@@ -404,16 +404,16 @@ class TimeLine extends Component {
   }
 }
 
-TimeLine.propTypes = {
+TimeLine2.propTypes = {
   itemheight: PropTypes.number.isRequired,
   dayWidth: PropTypes.number.isRequired,
   nonEditableName: PropTypes.bool
 };
 
-TimeLine.defaultProps = {
+TimeLine2.defaultProps = {
   itemheight: 20,
   dayWidth: 24,
   nonEditableName: false
 };
 
-export default TimeLine;
+export default TimeLine2;

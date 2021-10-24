@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import Registry from 'libs/helpers/registry/Registry';
-import Link from 'libs/components/links/Link';
-import CreateLink from 'libs/components/links/CreateLink';
-import DateHelper from 'libs/helpers/DateHelper';
+import Registry from '../../helpers/registry/Registry';
+import Link from './Link';
+import CreateLink from './CreateLink';
+import DateHelper from '../../helpers/DateHelper';
 
 export default class LinkViewPort extends Component {
   constructor(props) {

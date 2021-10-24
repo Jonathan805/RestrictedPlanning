@@ -1,4 +1,3 @@
-
 export class Plane{
   weapons = [];
   constructor(type, tail, id){

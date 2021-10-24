@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Config from 'libs/helpers/config/Config';
+import Config from '../../helpers/config/Config';
 export default class VerticalSpliter extends Component {
   constructor(props) {
     super(props);

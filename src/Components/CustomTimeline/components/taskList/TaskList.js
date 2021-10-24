@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import Config from 'libs/helpers/config/Config';
-import ContentEditable from 'libs/components/common/ContentEditable';
+import Config from '../../helpers/config/Config';
+import ContentEditable from '../../components/common/ContentEditable';
 
 export class VerticalLine extends Component {
   constructor(props) {

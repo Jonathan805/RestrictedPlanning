@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import Button from 'react-bootstrap/Button'
 import PopoverWrapper from './PopoverWrapper';
-import TimeLine from 'react-gantt-timeline';
 import Generator from './Borrowed/Generator';
+import TimeLine2 from './CustomTimeline/TimeLine'
 
 class TargetInfo extends Component{
   constructor(props) {
@@ -168,7 +168,7 @@ class TargetInfo extends Component{
         </div>
       <div className="targetRow">
         <div className="timeline">
-        <TimeLine
+        <TimeLine2
               config={config}
               data={this.state.data}
               links={this.state.links}

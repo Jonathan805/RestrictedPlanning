@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import DateHelper from 'libs/helpers/DateHelper';
-import { MODE_NONE, MODE_MOVE, MOVE_RESIZE_LEFT, MOVE_RESIZE_RIGHT } from 'libs/Const';
-import { LINK_POS_LEFT, LINK_POS_RIGHT } from 'libs/Const';
-import Config from 'libs/helpers/config/Config';
+import DateHelper from '../../helpers/DateHelper';
+import { MODE_NONE, MODE_MOVE, MOVE_RESIZE_LEFT, MOVE_RESIZE_RIGHT } from '../../Const';
+import { LINK_POS_LEFT, LINK_POS_RIGHT } from '../../Const';
+import Config from '../../helpers/config/Config';
 
 export default class DataTask extends Component {
   constructor(props) {
