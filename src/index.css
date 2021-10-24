@@ -19,7 +19,15 @@ code {
 }
 #section-right {
   width: Auto;
+  height: Auto;
   float:left;
+}
+
+#section-top {
+  width: Auto;
+  height: Auto;
+  float:top;
+  padding: 90px;
 }
 
 
@@ -47,6 +55,7 @@ select {
   background-color: #ffffff;
   }
 
+/* Styling for aircraft drag capability*/
 .flexbox {
 opacity: 0.9;
 align-content: left;
@@ -77,5 +86,31 @@ padding: 20px;
   cursor: pointer;
   margin-bottom:15px;
 }
+/* Styling for forms*/
 
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
 
+.input {
+  font-size: 16px;
+  font-size: max(16px, 1em);
+  font-family: in herit;
+  padding: 0.25em 0.5em;
+  background-color: #fff;
+  border: 2px solid var(--input-border);
+  border-radius: 4px;
+  align-content: right;
+  display:block;
+}
+
+label { 
+  /* Other styling... */
+  text-align: right;
+  clear: both;
+  float:left;
+  margin-right:15px;
+  display:block;
+}

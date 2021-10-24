@@ -6,6 +6,8 @@ import 'bootstrap/dist/css/bootstrap.css'
 import Row from "react-bootstrap/Row"
 import TargetList from "./Components/TargetList";
 
+import CreateTarget from './Components/CreateTarget';
+
 import Board from './Components/Board';
 import Card from "./Components/Card";
 
@@ -81,10 +83,17 @@ class App extends Component {
 
         <missionplanning className="missionfunctions">
           <section className="section-right">
-            <Row>
-              <TargetList />
-            </Row>
+            <section className="section-top">
+              <Row>
+                <TargetList />
+              </Row>
+            </section>
+            <br/>
+            <section className="section-top">
+              <CreateTarget />
+            </section>
           </section>
+
         </missionplanning>
 
         <Inventory />
