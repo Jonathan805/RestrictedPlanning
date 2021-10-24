@@ -8,23 +8,28 @@
   "sorties": [{"startTime":"2021-10-23T18:00:00.000Z", 
                "endTime": "2021-10-23T22:00:00.000Z",
                "restEndTime" : "2021-10-24T06:00:00.000Z",
-               "tail": "EJJ-1"},
+               "tail": "EJJ-1",
+               "maxSortieDuration":"4"},
                {"startTime":"2021-10-23T12:00:00.000Z", 
                 "endTime": "2021-10-23T16:00:00.000Z",
                 "restEndTime" : "2021-10-24T00:00:00.000Z",
-                "tail": "EJJ-2"},
+                "tail": "EJJ-2",
+                "maxSortieDuration":"4"},
                {"startTime":"2021-10-23T08:00:00.000Z", 
                 "endTime": "2021-10-23T10:00:00.000Z",
                 "restEndTime" : "2021-10-24T18:00:00.000Z",
-                "tail": "EJJ-3"},
+                "tail": "EJJ-3",
+                "maxSortieDuration":"4"},
               {"startTime":"2021-10-23T10:00:00.000Z", 
                 "endTime": "2021-10-23T22:00:00.000Z",
                 "restEndTime" : "2021-10-24T06:00:00.000Z",
-                "tail": "EJJ-4"},
+                "tail": "EJJ-4",
+                "maxSortieDuration":"4"},
                {"startTime":"2021-10-23T13:00:00.000Z", 
                 "endTime": "2021-10-24T00:00:00.000Z",
                 "restEndTime" : "2021-10-24T08:00:00.000Z",
-                "tail": "EJJ-5"}]
+                "tail": "EJJ-5",
+                "maxSortieDuration":"4"}]
 },
 {
   "name": "Carrier B",
@@ -36,11 +41,13 @@
   "sorties": [{"startTime":"2021-10-23T18:00:00.000Z", 
                "endTime": "2021-10-23T22:00:00.000Z",
                "restEndTime" : "2021-10-24T06:00:00.000Z",
-               "tail": "EJJ-11"},
+               "tail": "EJJ-11",
+               "maxSortieDuration":"4"},
               {"startTime":"2021-10-23T12:00:00.000Z", 
                "endTime": "2021-10-23T16:00:00.000Z",
                "restEndTime" : "2021-10-24T00:00:00.000Z",
-               "tail": "EJJ-12"}]
+               "tail": "EJJ-12",
+               "maxSortieDuration":"4"}]
 },
 {
   "name": "Destroyer A",
@@ -52,9 +59,11 @@
   "sorties": [{"startTime":"2021-10-23T18:00:00.000Z", 
               "endTime": "2021-10-23T22:00:00.000Z",
               "restEndTime" : "2021-10-24T06:00:00.000Z",
-              "tail": "EJJ-21"},
+              "tail": "EJJ-21",
+              "maxSortieDuration":"4"},
              {"startTime":"2021-10-23T12:00:00.000Z", 
               "endTime": "2021-10-23T16:00:00.000Z",
               "restEndTime" : "2021-10-24T00:00:00.000Z",
-              "tail": "EJJ-22"}]
+              "tail": "EJJ-22",
+              "maxSortieDuration":"4"}]
 }]

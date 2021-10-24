@@ -67,7 +67,7 @@ export default class DataTask extends Component {
         newLeft = this.state.left - delta;
         break;
       case MOVE_RESIZE_LEFT:
-        console.log("i'm moving the left");
+        newWidth = this.state.width + delta;
         newLeft = this.state.left - delta;
         break;
       case MOVE_RESIZE_RIGHT:

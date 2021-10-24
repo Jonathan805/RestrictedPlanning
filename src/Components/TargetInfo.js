@@ -27,6 +27,7 @@ class TargetInfo extends Component{
           start: new Date(sortie.startTime),
           end:  new Date(sortie.endTime),
           restEnd: new Date(sortie.restEndTime),
+          maxSortieTime: sortie.maxSortieDuration,
           name: sortie.tail,
           color: this.getSortieColor(),
           color2: this.getRestColor()
@@ -59,7 +60,8 @@ class TargetInfo extends Component{
     item.end = props.end;
     item.restEnd = props.restEnd;
     let difference = (item.end - item.start) / 1000 / 60 / 60;
-    if (difference > 4){
+    console.log(item);
+    if (difference > item.maxSortieTime){
       item.color = this.getInvalidColor();
     }
     else{
