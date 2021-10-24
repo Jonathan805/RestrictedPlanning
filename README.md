@@ -12,7 +12,7 @@ A live version of this may be found [here] (https://main.d3baakev2r6vf3.amplifya
 - React
 - React Bootstrap
 - React Gantt Timeline
-- Json Server
+- JSON Server (Imitation Backend)
 
 # Infrastructure
 - AWS Amplify (to build and deploy the site)
