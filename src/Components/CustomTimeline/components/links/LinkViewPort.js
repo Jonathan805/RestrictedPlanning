@@ -82,7 +82,7 @@ export default class LinkViewPort extends Component {
   };
 
   renderChangingTaskLinks = () => {
-    if (this.props.changingTask !== this.state.changingTask) {
+    if (this.props.changingTask != this.state.changingTask) {
       this.state.changingTask = this.props.changingTask;
       //Get Links from task
       let links = Registry.getLinks(this.state.changingTask.item.id);

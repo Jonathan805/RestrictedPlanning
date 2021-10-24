@@ -393,7 +393,6 @@ class TimeLine2 extends Component {
             selectedItem={this.props.selectedItem}
             onSelectItem={this.onSelectItem}
             itemheight={this.props.itemheight}
-            onSelectItem={this.onSelectItem}
             links={this.props.links}
           />
         </div>

@@ -1,5 +1,5 @@
 export class TargetClass{
-  constructor(image, name, latitude, longitude, elevation, successChance, sorties) {
+  constructor(image, name, latitude, longitude, elevation, successChance, sorties, toast) {
     this.targetImage = image;
     this.targetName = name;
     this.latitude = latitude;
@@ -7,6 +7,7 @@ export class TargetClass{
     this.elevation = elevation;
     this.successChance = successChance;
     this.sorties = sorties;
+    this.toast = toast;
   }
 }
 

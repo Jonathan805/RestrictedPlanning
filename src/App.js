@@ -15,10 +15,16 @@ import Growler from './AircraftImages/Growler.png';
 import F35 from './AircraftImages/F35.png';
 import B2 from './AircraftImages/B2.png';
 import FA18F from './AircraftImages/FA-18A.png';
+import ToastMessage from "./Components/ToastMessage";
+
 
 
 class App extends Component {
+  showToast =  (message) =>  {
+    <></>
+  }
 
+  Toast = () => {<ToastMessage/>}
 
   render() {
     return (
@@ -85,7 +91,7 @@ class App extends Component {
           <section className="section-right">
             <section className="section-top">
               <Row>
-                <TargetList />
+                <TargetList toast={this.Toast}/>
               </Row>
             </section>
             <br/>
