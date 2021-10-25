@@ -34,6 +34,8 @@ const App = () => {
 
   var Toast = () => { <ToastMessage /> }
 
+  const[showAddTarget, setShowAddTarget] = useState(false)
+
   const [targets, setTargets] = useState([
     {
       "id": 1,
@@ -56,7 +58,7 @@ const App = () => {
       "latitude": "sdfsd",
       "longitude": "sdfsd",
       "elevation": "sdfsd",
-      "successRate": "sdfdsf",
+      "successRate": "sdfdsf", 
       "id": 3
     }
   ])
@@ -119,9 +121,9 @@ const App = () => {
           </section>
           <br />
           <section className="section-top">
-            <Header />
+            <Header onAdd={() => setShowAddTarget (!showAddTarget)}/>
             <section className="section-left">
-              <CreateTarget createTarget={createTarget} />
+              {showAddTarget && <CreateTarget createTarget={createTarget}/>}
             </section>
             <section className="section-right">
               {targets.length > 0 ? 
