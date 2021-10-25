@@ -9,7 +9,10 @@ const Target = ({target, onDelete}) => {
             onClick={() => onDelete(target.id)} // pass the id when delete clicked
             />
             </h3>
-            <p>Lat:{target.latitude} Lon:{target.longitude} Elevation:{target.elevation} SuccessRate:{target.successRate}</p>
+            <p>Lat:{target.latitude} <br/>
+            Lon:{target.longitude} <br/>
+            Elevation:{target.elevation} <br/>
+            SuccessRate:{target.successRate}</p>
         </div>
     )
 }

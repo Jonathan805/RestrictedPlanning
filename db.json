@@ -1,20 +1,20 @@
 {
   "targets": [
     {
-      "id": 1,
-      "name": "Target 1",
+      "name": "Target 2",
       "latitude": "21",
       "longitude": "23",
-      "elevation": "1 MIL",
-      "successRate": "0.25"
+      "elevation": "343434",
+      "successRate": "1.0",
+      "id": 3
     },
     {
-      "name": "fghnb",
-      "latitude": "fghfgh",
-      "longitude": "fghfg",
-      "elevation": "fghfgh",
-      "successRate": "fgh",
-      "id": 2
+      "name": "Target3",
+      "latitude": "45",
+      "longitude": "67",
+      "elevation": "9 MIL",
+      "successRate": "0.5",
+      "id": 4
     }
   ]
 }

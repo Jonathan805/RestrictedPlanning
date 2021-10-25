@@ -23,6 +23,7 @@ import B2 from './AircraftImages/B2.png';
 // Components for creating Targets
 import Header from './Components/Header';
 import Targets from './Components/Targets';
+import Button from './Components/Button';
 import CreateTarget from './Components/CreateTarget';
 import { useState, useEffect } from 'react'
 
@@ -84,6 +85,37 @@ const App = () => {
     : alert('Error Delerting Target')
   }
 
+  // Function to generate JSON file from DB
+  async function generateTargetFile(){
+    const res = await fetch('http://localhost:5000/targets')
+    const data = await res.json()
+
+    var filename = 'targets.json'
+
+    var content = JSON.stringify(data)
+    //alert(content)
+
+    var file = new Blob([content], { type: "application/json" });
+    if (window.navigator.msSaveOrOpenBlob) // IE10+
+        window.navigator.msSaveOrOpenBlob(file, filename);
+    else { // Others
+        var a = document.createElement("a"),
+                url = URL.createObjectURL(file);
+        a.href = url;
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+        setTimeout(function() {
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(url);  
+        }, 0); 
+    }  
+  }
+
+  function generateSampleFile(){
+    alert('Implementing Soon')
+  }
+
   return (
     <div>
       <Nav />
@@ -121,7 +153,9 @@ const App = () => {
           <br />
           <section className="section-top">
             <Header onAdd={() => setShowAddTarget(!showAddTarget)}
-              showAddTarget={showAddTarget} />
+              showAddTarget={showAddTarget}
+              generateFile={() => generateTargetFile()}
+              generateSample={() => generateSampleFile()} />
             <section className="section-left">
               {showAddTarget && <CreateTarget createTarget={createTarget} />}
             </section>
