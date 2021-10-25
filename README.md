@@ -5,6 +5,10 @@ Contributors
 * Jonathan Guzman
 * Jonathan Ong
 
+# Instructions to run locally
+- npm run server (Start JSON DB)
+- npm start
+
 # Demo
 A live version of this may be found [here] (https://main.d3baakev2r6vf3.amplifyapp.com/)
 
