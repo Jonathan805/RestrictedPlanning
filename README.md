@@ -5,10 +5,6 @@ Contributors
 * Jonathan Guzman
 * Jonathan Ong
 
-# Instructions to run locally
-- npm run server (Start JSON DB)
-- npm start
-
 # Demo
 A live version of this may be found [here] (https://main.d3baakev2r6vf3.amplifyapp.com/)
 
@@ -22,3 +18,7 @@ A live version of this may be found [here] (https://main.d3baakev2r6vf3.amplifya
 - AWS Amplify (to build and deploy the site)
 - AWS S3 - Simple Storage Service (storing image)
 - AWS SNS - Simple Notification Service (pub sub between )
+
+# Instructions to run locally
+- npm run server (Start JSON DB)
+- npm start
