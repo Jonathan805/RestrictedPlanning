@@ -36,54 +36,30 @@ const App = () => {
 
   const [targets, setTargets] = useState([
     {
-        "id": 1,
-        "name": "Target 1",
-        "latitude": "21",
-        "longitude": "23",
-        "elevation": "1 MIL",
-        "successRate": "0.25"
-    },
-    {
-        "name": "Target 2",
-        "latitude": "fghfgh",
-        "longitude": "fghfg",
-        "elevation": "fghfgh",
-        "successRate": "fgh",
-        "id": 2
-    },
-    {
-        "name": "Target 3",
-        "latitude": "sdfsd",
-        "longitude": "sdfsd",
-        "elevation": "sdfsd",
-        "successRate": "sdfdsf",
-        "id": 3
-    },
-    {
       "id": 1,
       "name": "Target 1",
       "latitude": "21",
       "longitude": "23",
       "elevation": "1 MIL",
       "successRate": "0.25"
-  },
-  {
+    },
+    {
       "name": "Target 2",
       "latitude": "fghfgh",
       "longitude": "fghfg",
       "elevation": "fghfgh",
       "successRate": "fgh",
       "id": 2
-  },
-  {
+    },
+    {
       "name": "Target 3",
       "latitude": "sdfsd",
       "longitude": "sdfsd",
       "elevation": "sdfsd",
       "successRate": "sdfdsf",
       "id": 3
-  }
-])
+    }
+  ])
 
   // Create a target
   const createTarget = async (task) => {
@@ -102,57 +78,64 @@ const App = () => {
     alert(JSON.stringify(data))
   }
 
-    return (
-      <div>
-        <Nav />
-        <section id="section-left">
-          <main className="flexbox" >
-            <Board id="board-1" className="board" >
-              <center><h3>Inventory</h3></center>
-              <Card id="Aircraft-1" className="aircraft" draggable="true">
-                <Aircraft aircraftName='EA-18G (Growler)' image={Growler} />
-              </Card>
-              <Card id="Aircraft-2" className="aircraft" draggable="true">
-                <Aircraft aircraftName='FA-18F (Hornet)' image={FA18F} />
-              </Card>
-              <Card id="Aircraft-3" className="aircraft" draggable="true">
-                <Aircraft aircraftName='F35' image={F35} />
-              </Card>
-              <Card id="Aircraft-4" className="aircraft" draggable="true">
-                <Aircraft aircraftName='B2' image={B2} />
-              </Card>
-            </Board>
-            <Board id="board-2" className="board">
-              <center><h3>Mission</h3></center>
-            </Board>
-          </main>
-        </section>
+  // Delete Target (id passed up from clicked target)
+  const deleteTarget = (id) => {
+    setTargets(targets.filter((target) => target.id !== id))
+  }
+
+  return (
+    <div>
+      <Nav />
+      <section id="section-left">
+        <main className="flexbox" >
+          <Board id="board-1" className="board" >
+            <center><h3>Inventory</h3></center>
+            <Card id="Aircraft-1" className="aircraft" draggable="true">
+              <Aircraft aircraftName='EA-18G (Growler)' image={Growler} />
+            </Card>
+            <Card id="Aircraft-2" className="aircraft" draggable="true">
+              <Aircraft aircraftName='FA-18F (Hornet)' image={FA18F} />
+            </Card>
+            <Card id="Aircraft-3" className="aircraft" draggable="true">
+              <Aircraft aircraftName='F35' image={F35} />
+            </Card>
+            <Card id="Aircraft-4" className="aircraft" draggable="true">
+              <Aircraft aircraftName='B2' image={B2} />
+            </Card>
+          </Board>
+          <Board id="board-2" className="board">
+            <center><h3>Mission</h3></center>
+          </Board>
+        </main>
+      </section>
 
 
-        <missionplanning className="missionfunctions">
-          <section className="section-right">
-            <section className="section-top">
-              <Row>
-                <TargetList />
-              </Row>
-            </section>
-            <br />
-            <section className="section-top">
-              <Header />
-              <section className="section-left">
+      <missionplanning className="missionfunctions">
+        <section className="section-right">
+          <section className="section-top">
+            <Row>
+              <TargetList />
+            </Row>
+          </section>
+          <br />
+          <section className="section-top">
+            <Header />
+            <section className="section-left">
               <CreateTarget createTarget={createTarget} />
-              </section>
-              <section className="section-right">
-              <Targets targets={targets}/>
-              </section>
+            </section>
+            <section className="section-right">
+              {targets.length > 0 ? 
+              (<Targets targets={targets} onDelete={deleteTarget}/>) :
+              ('No Targets To Show')}
             </section>
           </section>
+        </section>
 
-        </missionplanning>
+      </missionplanning>
 
-        <Inventory />
-      </div>
-    );
-  }
+      <Inventory />
+    </div>
+  );
+}
 
 export default App;

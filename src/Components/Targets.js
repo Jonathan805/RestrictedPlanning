@@ -2,11 +2,12 @@
 
 import Target from './Target'
 
-const Targets = ({targets}) => {
+const Targets = ({targets, onDelete}) => {
     return (
         <>
             {targets.map((target) => (
-                <Target key={target.id} target={target}/>
+                <Target key={target.id} target={target}
+                onDelete={onDelete}/>
             ))}
         </>
     )
