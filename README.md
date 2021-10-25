@@ -5,6 +5,8 @@ Contributors
 * Jonathan Guzman
 * Jonathan Ong
 
+![alt text](https://github.com/Jonathan805/RestrictedPlanning/blob/main/WebAppScreenshot.png)
+
 # Demo
 A live version of this may be found [here] (https://main.d3baakev2r6vf3.amplifyapp.com/)
 
