@@ -29,7 +29,7 @@ const Targets = () => {
     return (
         <>
             {targets.map((target) => (
-                <h3>{target.name}</h3>
+                <h3 key={target.id}>{target.name}</h3>
             ))}
         </>
     )

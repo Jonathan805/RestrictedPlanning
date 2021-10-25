@@ -1,5 +1,4 @@
 import React, { Component } from "react"
-import { useState, useEffect } from 'react'
 import './App.css';
 import Nav from "./Components/Navbar";
 import Inventory from "./Components/Inventory";
@@ -7,7 +6,6 @@ import 'bootstrap/dist/css/bootstrap.css'
 import Row from "react-bootstrap/Row"
 import TargetList from "./Components/TargetList";
 
-import CreateTarget from './Components/CreateTarget';
 
 import ToastMessage from "./Components/ToastMessage";
 import TaskList from "./Components/CustomTimeline/components/taskList/TaskList";
@@ -25,19 +23,21 @@ import B2 from './AircraftImages/B2.png';
 // Components for creating Targets
 import Header from './Components/Header';
 import Targets from './Components/Targets';
+import CreateTarget from './Components/CreateTarget';
+import { useState, useEffect } from 'react'
 
 
-
-class App extends Component {
-  showToast = (message) => {
+const App = () => {
+  var showToast = (message) => {
     <></>
   }
 
-  Toast = () => { <ToastMessage /> }
+  var Toast = () => { <ToastMessage /> }
 
+  const [targets, setTargets] = useState([])
 
-  createTarget = async (task) => {
-
+  // Create a target
+  const createTarget = async (task) => {
     const res = await fetch('http://localhost:5000/targets', {
       method: 'POST',
       headers: {
@@ -53,7 +53,6 @@ class App extends Component {
     alert(JSON.stringify(data))
   }
 
-  render() {
     return (
       <div>
         <Nav />
@@ -91,7 +90,7 @@ class App extends Component {
             <br />
             <section className="section-top">
               <Header />
-              <CreateTarget createTarget={this.createTarget} />
+              <CreateTarget createTarget={createTarget} />
               <Targets/>
             </section>
           </section>
@@ -102,6 +101,5 @@ class App extends Component {
       </div>
     );
   }
-}
 
 export default App;
