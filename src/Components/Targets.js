@@ -5,8 +5,8 @@ import Target from './Target'
 const Targets = ({targets, onDelete}) => {
     return (
         <>
-            {targets.map((target) => (
-                <Target key={target.id} target={target}
+            {targets.map((target, index) => (
+                <Target key={index} target={target}
                 onDelete={onDelete}/>
             ))}
         </>

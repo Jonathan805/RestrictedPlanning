@@ -34,55 +34,54 @@ const App = () => {
 
   var Toast = () => { <ToastMessage /> }
 
-  const[showAddTarget, setShowAddTarget] = useState(false)
+  const [showAddTarget, setShowAddTarget] = useState(false)
 
-  const [targets, setTargets] = useState([
-    {
-      "id": 1,
-      "name": "Target 1",
-      "latitude": "21",
-      "longitude": "23",
-      "elevation": "1 MIL",
-      "successRate": "0.25"
-    },
-    {
-      "name": "Target 2",
-      "latitude": "fghfgh",
-      "longitude": "fghfg",
-      "elevation": "fghfgh",
-      "successRate": "fgh",
-      "id": 2
-    },
-    {
-      "name": "Target 3",
-      "latitude": "sdfsd",
-      "longitude": "sdfsd",
-      "elevation": "sdfsd",
-      "successRate": "sdfdsf", 
-      "id": 3
+  const [targets, setTargets] = useState([])
+
+  // Use effects to get targets
+  useEffect(() => {
+    const getTargets = async() => {
+      const targetsFromServer = await fetchTargerts()
+      setTargets(targetsFromServer)
     }
-  ])
+    getTargets()
+  }, [])
+
+  // Get targets from imitation JSON db
+  const fetchTargerts = async () => {
+    const res = await fetch('http://localhost:5000/targets')
+    const data = await res.json()
+    return data
+  }
 
   // Create a target
-  const createTarget = async (task) => {
+  const createTarget = async (target) => {
     const res = await fetch('http://localhost:5000/targets', {
       method: 'POST',
       headers: {
         'Content-type': 'application/json'
       },
-      body: JSON.stringify(task)
+      body: JSON.stringify(target)
     })
 
     const data = await res.json()
 
-    //setTasks([...task, data])
+    setTargets([...targets, data])
     //console.log(task)
-    alert(JSON.stringify(data))
+    //alert(JSON.stringify(data))
   }
 
   // Delete Target (id passed up from clicked target)
-  const deleteTarget = (id) => {
-    setTargets(targets.filter((target) => target.id !== id))
+  const deleteTarget = async (id) => {
+    
+    const res = await fetch(`http://localhost:5000/targets/${id}`, {
+      method: 'DELETE',
+    })
+
+    // Check if target was deleted. If not, alert the user
+    res.status === 200
+    ? setTargets(targets.filter((target) => target.id !== id))
+    : alert('Error Delerting Target')
   }
 
   return (
@@ -121,15 +120,15 @@ const App = () => {
           </section>
           <br />
           <section className="section-top">
-            <Header onAdd={() => setShowAddTarget (!showAddTarget)} 
-            showAddTarget={showAddTarget}/>
+            <Header onAdd={() => setShowAddTarget(!showAddTarget)}
+              showAddTarget={showAddTarget} />
             <section className="section-left">
-              {showAddTarget && <CreateTarget createTarget={createTarget}/>}
+              {showAddTarget && <CreateTarget createTarget={createTarget} />}
             </section>
             <section className="section-right">
-              {targets.length > 0 ? 
-              (<Targets targets={targets} onDelete={deleteTarget}/>) :
-              ('No Targets To Show')}
+              {targets.length > 0 ?
+                (<Targets targets={targets} onDelete={deleteTarget} />) :
+                ('No Targets To Show')}
             </section>
           </section>
         </section>
