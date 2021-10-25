@@ -14,18 +14,18 @@ code {
 }
 
 #section-left {
-  overflow:hidden;
+  height: 100%;
   float:left;    
 }
 #section-right {
   width: Auto;
-  height: Auto;
+  height: 100%;
   float:left;
 }
 
 #section-top {
   width: Auto;
-  height: Auto;
+  height: 100%;
   float:top;
   padding: 90px;
 }
@@ -43,11 +43,8 @@ select {
   display: flex;
   justify-content: space-between;
   width: Auto;
-  max-width: 12000px;
-  height: 1000px;
-  overflow: hidden;
-  margin: 0 auto;
-  margin-top: 40px;
+  height: auto;
+  padding-bottom: 200px;
   padding: 20px;  
   flex-direction: column;}
 
@@ -60,6 +57,7 @@ justify-content: space-between;
 width: 90vh;
 max-width: 650px;
 height: 100vh;
+max-height: 100vh;
 overflow: hidden;
 margin: 0 auto;
 padding: 20px;  
@@ -127,18 +125,18 @@ label {
   width: 100%;
 }
 
-.task {
+.targets {
   background: #f4f4f4;
   margin: 5px;
   padding: 10px 20px;
   cursor: pointer;
 }
 
-.task.reminder {
+.targets.reminder {
   border-left: 5px solid green;
 }
 
-.task h3 {
+.targets h3 {
   display: flex;
   align-items: center;
   justify-content: space-between;

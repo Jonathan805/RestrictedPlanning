@@ -34,7 +34,56 @@ const App = () => {
 
   var Toast = () => { <ToastMessage /> }
 
-  const [targets, setTargets] = useState([])
+  const [targets, setTargets] = useState([
+    {
+        "id": 1,
+        "name": "Target 1",
+        "latitude": "21",
+        "longitude": "23",
+        "elevation": "1 MIL",
+        "successRate": "0.25"
+    },
+    {
+        "name": "Target 2",
+        "latitude": "fghfgh",
+        "longitude": "fghfg",
+        "elevation": "fghfgh",
+        "successRate": "fgh",
+        "id": 2
+    },
+    {
+        "name": "Target 3",
+        "latitude": "sdfsd",
+        "longitude": "sdfsd",
+        "elevation": "sdfsd",
+        "successRate": "sdfdsf",
+        "id": 3
+    },
+    {
+      "id": 1,
+      "name": "Target 1",
+      "latitude": "21",
+      "longitude": "23",
+      "elevation": "1 MIL",
+      "successRate": "0.25"
+  },
+  {
+      "name": "Target 2",
+      "latitude": "fghfgh",
+      "longitude": "fghfg",
+      "elevation": "fghfgh",
+      "successRate": "fgh",
+      "id": 2
+  },
+  {
+      "name": "Target 3",
+      "latitude": "sdfsd",
+      "longitude": "sdfsd",
+      "elevation": "sdfsd",
+      "successRate": "sdfdsf",
+      "id": 3
+  }
+])
 
   // Create a target
   const createTarget = async (task) => {
@@ -90,8 +139,12 @@ const App = () => {
             <br />
             <section className="section-top">
               <Header />
+              <section className="section-left">
               <CreateTarget createTarget={createTarget} />
-              <Targets/>
+              </section>
+              <section className="section-right">
+              <Targets targets={targets}/>
+              </section>
             </section>
           </section>
 
