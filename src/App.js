@@ -121,7 +121,8 @@ const App = () => {
           </section>
           <br />
           <section className="section-top">
-            <Header onAdd={() => setShowAddTarget (!showAddTarget)}/>
+            <Header onAdd={() => setShowAddTarget (!showAddTarget)} 
+            showAddTarget={showAddTarget}/>
             <section className="section-left">
               {showAddTarget && <CreateTarget createTarget={createTarget}/>}
             </section>
