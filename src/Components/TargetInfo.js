@@ -69,10 +69,6 @@ class TargetInfo extends Component{
     }   
     this.setState({ data: [...this.state.data] });
   };
-
-  shiftItems = () => {
-
-  }
   
   onCreateLink = (item) => {
     let newLink = Generator.createLink(item.start, item.end);
@@ -110,6 +106,11 @@ class TargetInfo extends Component{
 
   getRestColor(){
     return "#000000";
+  }
+
+  showToast = () => {
+    // in the button
+    this.props.toastHandler("UH OH", this.target.targetName + " is kill!");
   }
   
    
@@ -193,7 +194,7 @@ class TargetInfo extends Component{
                                     imagery={this.target.targetImage} 
                                     buttonText="See Imagery"/>
         </div>
-        <div><Button>Generate Route</Button></div>
+        <div><Button onClick={this.showToast}>Generate Route</Button></div>
       </div>
       </div>
       );

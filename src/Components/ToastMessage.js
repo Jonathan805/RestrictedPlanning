@@ -1,38 +1,72 @@
-import React, { Component } from 'react'
-import { Toast } from 'react-bootstrap'
-import { ToastContainer } from 'react-bootstrap';
-class ToastMessage extends Component{
+import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 
-  constructor(props)  {
-    super(props)
-    this.state = [{show: false}];
-    this.message = this.props.message;
-    this.description = this.props.description;
-  }
+import '../css/Toast.css';
 
-  closeToast = () => {
-    this.setState({show: false});
-  }
+const Toast = props => {
+    const { toastList, position, autoDelete, dismissTime } = props;
+    const [list, setList] = useState(toastList);
 
-  showMessage = (message, description) => {
-    this.setState({show:true});
-    this.message = message;
-    this.description = description;
-  }
+    useEffect(() => {
+        setList([...toastList]);
 
-  render() {
-    return(
-      <ToastContainer position='bottom-right'>
-        <Toast show={this.state.show} onClose={this.closeToast} delay={3000} autohide>
-          <Toast.Header>
-            <strong className="me-auto">{this.props.target}</strong>
-            <small>{this.message}</small>
-          </Toast.Header>
-          <Toast.Body>{this.description}</Toast.Body>
-        </Toast>
-    </ToastContainer>
+        // eslint-disable-next-line
+    }, [toastList]);
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            if (autoDelete && toastList.length && list.length) {
+                deleteToast(toastList[0].id);
+            }
+        }, dismissTime);
+
+        return () => {
+            clearInterval(interval);
+        }
+
+        // eslint-disable-next-line
+    }, [toastList, autoDelete, dismissTime, list]);
+
+    const deleteToast = id => {
+        const listItemIndex = list.findIndex(e => e.id === id);
+        const toastListItem = toastList.findIndex(e => e.id === id);
+        list.splice(listItemIndex, 1);
+        toastList.splice(toastListItem, 1);
+        setList([...list]);
+    }
+
+    return (
+        <>
+            <div className={`notification-container ${position}`}>
+                {
+                    list.map((toast, i) =>     
+                        <div 
+                            key={i}
+                            className={`notification toast ${position}`}
+                            style={{ backgroundColor: toast.backgroundColor }}
+                        >
+                            <button onClick={() => deleteToast(toast.id)}>
+                                X
+                            </button>
+                            <div>
+                                <p className="notification-title">{toast.title}</p>
+                                <p className="notification-message">
+                                    {toast.description}
+                                </p>
+                            </div>
+                        </div>
+                    )
+                }
+            </div>
+        </>
     );
-  }
 }
 
-export default ToastMessage
+Toast.propTypes = {
+    toastList: PropTypes.array.isRequired,
+    position: PropTypes.string,
+    autoDelete: PropTypes.bool,
+    dismissTime: PropTypes.number
+}
+
+export default Toast;

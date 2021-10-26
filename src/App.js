@@ -6,10 +6,8 @@ import 'bootstrap/dist/css/bootstrap.css'
 import Row from "react-bootstrap/Row"
 import TargetList from "./Components/TargetList";
 
-
-import ToastMessage from "./Components/ToastMessage";
-import TaskList from "./Components/CustomTimeline/components/taskList/TaskList";
-import { DataViewPort } from "./Components/CustomTimeline/components/viewport/DataViewPort";
+// Toast components
+import Toast from "./Components/ToastMessage";
 
 // Components for click and drag Aircraft selections
 import Board from './Components/Board';
@@ -23,17 +21,14 @@ import B2 from './AircraftImages/B2.png';
 // Components for creating Targets
 import Header from './Components/Header';
 import Targets from './Components/Targets';
-import Button from './Components/Button';
 import CreateTarget from './Components/CreateTarget';
 import { useState, useEffect } from 'react'
 
 
 const App = () => {
-  var showToast = (message) => {
-    <></>
-  }
 
-  var Toast = () => { <ToastMessage /> }
+  // Toast stuff
+  const [list, setList] = useState([]);
 
   const [showAddTarget, setShowAddTarget] = useState(false)
 
@@ -78,6 +73,19 @@ const App = () => {
     //console.log(task)
     //alert(JSON.stringify(data))
   }
+
+  const showToast = (title, message) => {
+    const id = Math.floor((Math.random() * 101) + 1);
+    let toastProperties;
+    toastProperties = {
+      id,
+      title: title,
+      description: message,
+      backgroundColor: '#5cb85c'
+    }
+    setList([...list, toastProperties]);
+  }
+
 
   // Delete Target (id passed up from clicked target)
   const deleteTarget = async (id) => {
@@ -154,7 +162,7 @@ const App = () => {
         <section className="section-right">
           <section className="section-top">
             <Row>
-              <TargetList />
+              <TargetList toastHandler={showToast}/>
             </Row>
           </section>
           <br />
@@ -177,6 +185,12 @@ const App = () => {
       </missionplanning>
 
       <Inventory />
+      <Toast 
+        toastList={list}
+        position={"bottom-right"}
+        autoDelete={false}
+        autoDeleteTime={300}
+      />
     </div>
   );
 }
