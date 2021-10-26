@@ -42,17 +42,24 @@ const App = () => {
   // Use effects to get targets
   useEffect(() => {
     const getTargets = async() => {
-      const targetsFromServer = await fetchTargerts()
+      const targetsFromServer = await fetchTargets()
       setTargets(targetsFromServer)
     }
     getTargets()
   }, [])
 
   // Get targets from imitation JSON db
-  const fetchTargerts = async () => {
+  const fetchTargets = async () => {
+    try{
     const res = await fetch('http://localhost:5000/targets')
     const data = await res.json()
     return data
+    }
+    catch(ex)
+    {
+      alert("Unable to connect to DB")
+      return []
+    }
   }
 
   // Create a target
