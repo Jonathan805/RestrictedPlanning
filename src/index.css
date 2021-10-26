@@ -178,7 +178,7 @@ label {
 }
 
 .form-control input {
-  width: 100%;
+  width: 400px;
   height: 40px;
   margin: 5px;
   padding: 3px 7px;
