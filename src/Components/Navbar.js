@@ -7,24 +7,28 @@ import NavDropdown from 'react-bootstrap/NavDropdown'
 class RestrictedNav extends Component{
   constructor(props){
     super(props);
-    this.state = {missions: [], showForm:false};
+    this.state = {missions: [], 
+                  showForm:false, 
+                  activeMission:""};
   }
 
-  handleActivateMission(e) {
-    //window.alert(e)
+  handleActivateMission = (e) => {
+    console.log(e.target.text);
+    this.setState({activeMission: e.target.text});
   }
 
-  createMission()  {
-    
+  createMission = () =>  {
+    let tempMission = [...this.state.missions, "test"];
 
+    this.setState({missions:tempMission});
   }
 
   getMissions()  {
     if (this.state.missions.length > 0){
-     return this.missions.map((mission) => <NavDropdown.Item>{mission}</NavDropdown.Item>)
+     return this.state.missions.map((mission) => <NavDropdown.Item onClick={this.handleActivateMission}>{mission}</NavDropdown.Item>)
     }
     else {
-     return <NavDropdown.Item onClick={this.handleActivateMission()} >No Missions</NavDropdown.Item>
+     return <NavDropdown.Item onClick={this.handleActivateMission}>No Missions</NavDropdown.Item>
     }
   }
 
@@ -60,11 +64,11 @@ class RestrictedNav extends Component{
             <NavDropdown title="Mission" id="basic-nav-dropdown">
               {this.getMissions()}
               <NavDropdown.Divider />
-              <NavDropdown.Item onClick={() =>this.createMission()}>Add Mission</NavDropdown.Item>
+              <NavDropdown.Item onClick={this.createMission}>Add Mission</NavDropdown.Item>
             </NavDropdown>
           </Nav>
         </Navbar.Collapse>
-        <Navbar.Brand >Active Mission: {this.activeMission}</Navbar.Brand>
+        <Navbar.Brand >Active Mission: {this.state.activeMission}</Navbar.Brand>
       </Container>
     </Navbar>
     </>
