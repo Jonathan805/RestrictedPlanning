@@ -162,7 +162,7 @@ const App = () => {
             <Header onAdd={() => setShowAddTarget(!showAddTarget)}
               showAddTarget={showAddTarget}
               generateFile={() => generateTargetFile()}
-              generateSample={() => generateSampleFile()} />
+              generateSample={() => generateSampleFile()}/> <br/>
             <section className="section-left">
               {showAddTarget && <CreateTarget createTarget={createTarget} />}
             </section>
