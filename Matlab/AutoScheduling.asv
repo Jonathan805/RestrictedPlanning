@@ -1,18 +1,17 @@
 close all; clear all; clc;
 
-% restraints/constraints that users will need to handle on their own
+% restraints/constraints that users will need to handle
 % hotseats - 30 min
 % Each carrier can accommodate 2x hotseats at a time in any combination of jet or helo
 
+% output in format that they need
 
-% Target Info Setup
-[IndProbKillsIfTgtIdxStrk, TgtToIdxToKill, DestroyOrDisableFlags, sortieTimesAgainstTarget, ...
-    percentOfJetsThatGetKilledIfAttacked] = targetInfoSetup();
 
 % Determine Target Striking Order
+[IndProbKillsIfTgtIdxStrk, TgtToIdxToKill, DestroyOrDisableFlags, sortieTimesAgainstTarget, ...
+    percentOfJetsThatGetKilledIfAttacked] = targetInfoSetup();
 [TgtStrikeOrder, OrderedDestroyOrDisableFlags, OrderedSortieTimesAgainstTarget, OrderedChanceGetKilledIfStriked] = ...
-    determineTargetStrikingOrder(IndProbKillsIfTgtIdxStrk, TgtToIdxToKill, DestroyOrDisableFlags, ...
-    sortieTimesAgainstTarget);
+    determineTargetStrikingOrder(IndProbKillsIfTgtIdxStrk, TgtToIdxToKill, DestroyOrDisableFlags, sortieTimesAgainstTarget);
 
 % Determine Number of Missiles Needed for Targets
 [numMissilesPerTarget, numMissilesNeededForTgt] = missileInfoSetup(OrderedDestroyOrDisableFlags);
@@ -959,7 +958,7 @@ function [chosenJets, chosenHelo, chosenPilots, jetPilotMapping, missionStartTim
     for ii = 1:length(missilesToUse)-1
         fprintf('%d, ', missilesToUse(ii));
     end
-    if (length(missilesToUse) >= 1)
+    if (length(missilesToUse) > 1)
         fprintf('%d\n', missilesToUse(length(missilesToUse)));
     else
         fprintf('\n');
@@ -1078,12 +1077,11 @@ end
 
 function [TgtStrikeOrder, OrderedDestroyOrDisableFlags, OrderedSortieTimesAgainstTarget, ...
     OrderedChanceGetKilledIfStriked] = determineTargetStrikingOrder( ...
-    IndProbKillsIfTgtIdxStrk, TgtToIdxToKill, DestroyOrDisableFlags, ...
-    sortieTimesAgainstTarget)
+    IndProbKillsIfTgtIdxStrk, TgtToIdxToKill, DestroyOrDisableFlags, sortieTimesAgainstTarget)
 
     % probability of getting killed if attack the target (at index)
     ChanceGetKilledIfStriked = 1 - prod(1 - IndProbKillsIfTgtIdxStrk,1);
-
+    
     % probability of getting killed if strike all targets but no targets destroyed
     GetKilledProbIfStrikeAll = 1 - prod(1 - ChanceGetKilledIfStriked);
     
@@ -1091,7 +1089,6 @@ function [TgtStrikeOrder, OrderedDestroyOrDisableFlags, OrderedSortieTimesAgains
     TgtStrikeOrder = zeros(1, size(IndProbKillsIfTgtIdxStrk,2));
     LiveProbability = zeros(1, size(IndProbKillsIfTgtIdxStrk,2));
     ProbGetKilledIfStrikeThisTgt = zeros(1, size(IndProbKillsIfTgtIdxStrk,2));
-
     for aa = 1:length(TgtStrikeOrder)
         
         idxToUse = find(TgtStrikeOrder == 0);
@@ -1127,6 +1124,8 @@ function [TgtStrikeOrder, OrderedDestroyOrDisableFlags, OrderedSortieTimesAgains
         % probability of survival
         LiveProbability(idxToUse(idx)) = LiveProbabilityIfTgtStriked(idx);
     end
+
+    TgtStrikeOrder 
     
     OrderedDestroyOrDisableFlags = DestroyOrDisableFlags(TgtStrikeOrder);
     OrderedSortieTimesAgainstTarget = sortieTimesAgainstTarget(TgtStrikeOrder, :);
