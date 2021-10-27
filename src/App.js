@@ -24,6 +24,10 @@ import Targets from './Components/Targets';
 import CreateTarget from './Components/CreateTarget';
 import { useState, useEffect } from 'react'
 
+import {toast} from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+
+toast.configure()
 
 const App = () => {
 
@@ -33,6 +37,12 @@ const App = () => {
   const [showAddTarget, setShowAddTarget] = useState(false)
 
   const [targets, setTargets] = useState([])
+
+  // TODO: Need to define constants for notifications and use
+  // them when actions are performed
+  const notify = () => {
+    toast('Basic notification!')
+  }
 
   // Use effects to get targets
   useEffect(() => {
@@ -52,7 +62,9 @@ const App = () => {
     }
     catch(ex)
     {
-      alert("Unable to connect to DB")
+      toast('NOTICE! --> Unable to Connect to DB')
+      toast('Execute "npm run server" locally to start JSON Server')
+      //alert("Unable to connect to DB")
       return []
     }
   }
@@ -70,6 +82,7 @@ const App = () => {
     const data = await res.json()
 
     setTargets([...targets, data])
+    toast('Target Created')
     //console.log(task)
     //alert(JSON.stringify(data))
   }
@@ -98,6 +111,8 @@ const App = () => {
     res.status === 200
     ? setTargets(targets.filter((target) => target.id !== id))
     : alert('Error Delerting Target')
+
+    toast('Target Deleted')
   }
 
   // Function to generate JSON file from DB

@@ -1,14 +1,6 @@
 {
   "targets": [
     {
-      "name": "Target 2",
-      "latitude": "21",
-      "longitude": "23",
-      "elevation": "343434",
-      "successRate": "1.0",
-      "id": 3
-    },
-    {
       "name": "Target3",
       "latitude": "45",
       "longitude": "67",
@@ -17,11 +9,11 @@
       "id": 4
     },
     {
-      "name": "Target 3",
-      "latitude": "fsdfs",
-      "longitude": "sdfsdf",
-      "elevation": "dfsdf",
-      "successRate": "dfsdf",
+      "name": "Target 4",
+      "latitude": "45",
+      "longitude": "34",
+      "elevation": "3",
+      "successRate": ".43",
       "id": 5
     }
   ]
