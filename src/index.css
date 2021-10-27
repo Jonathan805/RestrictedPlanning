@@ -82,11 +82,12 @@ padding: 20px;
 }
 /* Styling for forms*/
 
+/*
 *,
 *::before,
 *::after {
   box-sizing: border-box;
-}
+}*/
 
 label { 
   /* Other styling... */
