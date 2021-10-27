@@ -1,17 +1,18 @@
 close all; clear all; clc;
 
-% restraints/constraints that users will need to handle
+% restraints/constraints that users will need to handle on their own
 % hotseats - 30 min
 % Each carrier can accommodate 2x hotseats at a time in any combination of jet or helo
 
-% output in format that they need
 
-
-% Determine Target Striking Order
+% Target Info Setup
 [IndProbKillsIfTgtIdxStrk, TgtToIdxToKill, DestroyOrDisableFlags, sortieTimesAgainstTarget, ...
     percentOfJetsThatGetKilledIfAttacked] = targetInfoSetup();
+
+% Determine Target Striking Order
 [TgtStrikeOrder, OrderedDestroyOrDisableFlags, OrderedSortieTimesAgainstTarget, OrderedChanceGetKilledIfStriked] = ...
-    determineTargetStrikingOrder(IndProbKillsIfTgtIdxStrk, TgtToIdxToKill, DestroyOrDisableFlags, sortieTimesAgainstTarget);
+    determineTargetStrikingOrder(IndProbKillsIfTgtIdxStrk, TgtToIdxToKill, DestroyOrDisableFlags, ...
+    sortieTimesAgainstTarget);
 
 % Determine Number of Missiles Needed for Targets
 [numMissilesPerTarget, numMissilesNeededForTgt] = missileInfoSetup(OrderedDestroyOrDisableFlags);
@@ -19,13 +20,15 @@ close all; clear all; clc;
 %%%%%%%%%%%%%
 % Timeline  %
 %%%%%%%%%%%%%
+NumSorties = length(TgtStrikeOrder);
+
 [NumJets, NumPilots, NumHelos, NumHours, jetRestTime, heloRestTime, pilotRestTime, ...
     jetRepositionTime, pilotRepositionTime, heloRepositionTime, missileRepositionTime, jetMissileStorage, ...
     JetsInfo, JetsHoursInfo, JetsCarrierInfo, PilotsInfo, PilotJetsInfo, MissilesCarrierInfo, ...
     PilotsHoursInfo, PilotsCarrierInfo, HelosHoursInfo, HelosCarrierInfo, HeloCrewsCarrierInfo, ...
     heloConsecFlyTime, maxJetSortiesPerDay, jetFlyTimePerDay, jetPilotFlyTimePerDay, ...
     HeloMaxPilotsMoved, JetSortiesInfo, JetMaintenanceHrsAfterHrsInFlight, ...
-    JetDownTimeInfo, HeloDownTimeInfo, data] = setUp();
+    JetDownTimeInfo, HeloDownTimeInfo, data] = setUp(NumSorties);
 
 % flags (simulating mission execution when receive extra info)
 TurnOnPilotJetKill = 1; % flag to turn on removing pilots/jets if they get killed
@@ -59,7 +62,7 @@ for kk = 1:length(TgtStrikeOrder)
             PilotsHoursInfo, PilotsCarrierInfo, HelosHoursInfo, HelosCarrierInfo, HeloCrewsCarrierInfo, ...
             MissilesCarrierInfo, JetSortiesInfo, rerunAndIncrementStartTime, numberOfJetsPilotsKilled, ...
             data] = AddToSchedule(...
-            TgtStrikeOrder(kk), startTimeHr, maxSortieTimeHrs, NumJets, NumPilots, NumHelos, NumHours, ...
+            kk, TgtStrikeOrder(kk), startTimeHr, maxSortieTimeHrs, NumJets, NumPilots, NumHelos, NumHours, ...
             JetsInfo, JetsHoursInfo, JetsCarrierInfo, PilotsInfo, PilotJetsInfo, MissilesCarrierInfo, ...
             PilotsHoursInfo, PilotsCarrierInfo, HelosHoursInfo, HelosCarrierInfo, HeloCrewsCarrierInfo, ...
             jetRestTime, heloRestTime, pilotRestTime, jetRepositionTime, pilotRepositionTime, heloRepositionTime, ...
@@ -86,7 +89,7 @@ disp(['Number of Casualities: ' num2str(numberOfJetsPilotsKilled)]);
  function [JetsInfo, JetsHoursInfo, JetsCarrierInfo, PilotsInfo, PilotJetsInfo, ...
     PilotsHoursInfo, PilotsCarrierInfo, HelosHoursInfo, HelosCarrierInfo, HeloCrewsCarrierInfo, ...
     MissilesCarrierInfo, JetSortiesInfo, rerunAndIncrementStartTime, numberOfJetsPilotsKilled, data] = ...
-    AddToSchedule(targetNumber, startTimeHr, maxSortieTimeHrs, NumJets, NumPilots, NumHelos, NumHours, ...
+    AddToSchedule(sortieNumber, targetNumber, startTimeHr, maxSortieTimeHrs, NumJets, NumPilots, NumHelos, NumHours, ...
     JetsInfo, JetsHoursInfo, JetsCarrierInfo, PilotsInfo, PilotJetsInfo, MissilesCarrierInfo, ...
     PilotsHoursInfo, PilotsCarrierInfo, HelosHoursInfo, HelosCarrierInfo, HeloCrewsCarrierInfo, ...
     jetRestTime, heloRestTime, pilotRestTime, jetRepositionTime, pilotRepositionTime, heloRepositionTime, ...
@@ -110,7 +113,7 @@ disp(['Number of Casualities: ' num2str(numberOfJetsPilotsKilled)]);
         missileRepositionTime, heloConsecFlyTime, maxJetSortiesPerDay, jetFlyTimePerDay, jetPilotFlyTimePerDay, ...
         numMissilesNeeded, jetMissileStorage, HeloMaxPilotsMoved, JetSortiesInfo, ...
         JetMaintenanceHrsAfterHrsInFlight, JetDownTimeInfo, HeloDownTimeInfo, TurnOnPossibleJetHeloDownTime, ...
-        tempData);
+        sortieNumber, tempData);
 
     if ~rerunAndIncrementStartTime
         % plot schedule
@@ -151,7 +154,7 @@ function [NumJets, NumPilots, NumHelos, NumHours, jetRestTime, heloRestTime, pil
     PilotsHoursInfo,PilotsCarrierInfo, HelosHoursInfo, HelosCarrierInfo, HeloCrewsCarrierInfo, ...
     heloConsecFlyTime, maxJetSortiesPerDay, jetFlyTimePerDay, jetPilotFlyTimePerDay, ...
     HeloMaxPilotsMoved, JetSortiesInfo, JetMaintenanceHrsAfterHrsInFlight, ....
-    JetDownTimeInfo, HeloDownTimeInfo, data] = setUp()
+    JetDownTimeInfo, HeloDownTimeInfo, data] = setUp(NumSorties)
 
     NumJets = 19;
     NumPilots = 21;
@@ -315,7 +318,7 @@ function [chosenJets, chosenHelo, chosenPilots, jetPilotMapping, missionStartTim
     missileRepositionTime, heloConsecFlyTime, maxJetSortiesPerDay, jetFlyTimePerDay, jetPilotFlyTimePerDay, ...
     numMissilesNeeded, jetMissileStorage, HeloMaxPilotsMoved, JetSortiesInfo, ...
     JetMaintenanceHrsAfterHrsInFlight, JetDownTimeInfo, HeloDownTimeInfo, TurnOnPossibleJetHeloDownTime, ...
-    tempData)
+    sortieNumber, tempData)
 
     % initialize
     rerunAndIncrementStartTime = 0;
@@ -723,7 +726,7 @@ function [chosenJets, chosenHelo, chosenPilots, jetPilotMapping, missionStartTim
     % in this
     if (exist("heloList") && ~isempty(heloList))
         tempHelosHoursInfo(heloList, startTimeHr:(startTimeHr+pilotRepositionTime-1)) = 0;
-        pilotsRepositionedByHelo = setdiff(pilotListMove, pilotsRepositionedByJet);
+        pilotsRepositionedByHelo = setdiff(pilotsToMoveCarriers, pilotsRepositionedByJet);
         tempPilotsHoursInfo(pilotsRepositionedByHelo, startTimeHr:(startTimeHr+pilotRepositionTime-1)) = 0;
         missionStartTimeHr = startTimeHr+pilotRepositionTime;
 
@@ -934,6 +937,54 @@ function [chosenJets, chosenHelo, chosenPilots, jetPilotMapping, missionStartTim
     tempPilotsHoursInfo(chosenPilots, missionStartTimeHr:(missionStartTimeHr+maxSortieTimeHrs-1+pilotRestTime)) = 0;
     tempHelosHoursInfo(chosenHelo, missionStartTimeHr-1:(missionStartTimeHr+maxSortieTimeHrs+heloRestTime+heloDownTime)) = 0;
 
+    % output what the front end needs
+    % jet sortie data
+    JetSortieData(sortieNumber).repositionedJets = jetsRepositioned;
+    JetSortieData(sortieNumber).startRepositionTimeHr = startTimeHr;
+    JetSortieData(sortieNumber).endRepositionTimeHr = startTimeHr+jetRepositionTime-1;
+    JetSortieData(sortieNumber).jetsUsedToRepositionMissiles = extraJetsToMoveMissiles;
+    JetSortieData(sortieNumber).startMissileRepositionTimeHr = startTimeHr;
+    JetSortieData(sortieNumber).endMissileRepositionTimeHr = startTimeHr+missileRepositionTime-1;
+    JetSortieData(sortieNumber).jetsToFlySortie = chosenJets;
+    JetSortieData(sortieNumber).startSortieTimeHr = missionStartTimeHr;
+    JetSortieData(sortieNumber).endSortieTimeHr = missionStartTimeHr+maxSortieTimeHrs-1;
+    JetSortieData(sortieNumber).jetsNeedingRestDownTime = chosenJets;
+    JetSortieData(sortieNumber).startRestDownTimeHr = missionStartTimeHr+maxSortieTimeHrs;
+    for jj = 1:length(chosenJets)
+        JetSortieData(sortieNumber).endRestDownTimeHr = missionStartTimeHr+maxSortieTimeHrs-1+jetRestTime+jetDownTime(jj);
+    end
+    % pilot sortie data
+    PilotSortieData(sortieNumber).repositionedPilotsByJet = pilotsRepositionedByJet;
+    PilotSortieData(sortieNumber).startRepositionByJetTimeHr = startTimeHr;
+    PilotSortieData(sortieNumber).endRepositionByJetTimeHr = startTimeHr+jetRepositionTime-1;
+    PilotSortieData(sortieNumber).repositionedPilotsByHelo = pilotsRepositionedByHelo;
+    PilotSortieData(sortieNumber).startRepositionByHeloTimeHr = startTimeHr;
+    PilotSortieData(sortieNumber).endRepositionByHeloTimeHr = startTime+pilotRepositionTime-1;
+    PilotSortieData(sortieNumber).pilotsUsedToRepositionMissiles = extraPilotsToMoveMissiles;
+    PilotSortieData(sortieNumber).startMissileRepositionTimeHr = startTimeHr;
+    PilotSortieData(sortieNumber).endMissileRepositionTimeHr = startTimeHr+missileRepositionTime-1;
+    PilotSortieData(sortieNumber).pilotsToFlySortie = chosenPilots;
+    PilotSortieData(sortieNumber).startSortieTimeHr = missionStartTimeHr;
+    PilotSortieData(sortieNumber).endSortieTimeHr = missionStartTimeHr+maxSortieTimeHrs-1;
+    PilotSortieData(sortieNumber).pilotsNeedingRestTime = chosenPilots;
+    PilotSortieData(sortieNumber).startRestTimeHr = missionStartTimeHr+maxSortieTimeHrs;
+    PilotSortieData(sortieNumber).endRestTimeHr = missionStartTimeHr+maxSortieTimeHrs-1+pilotRestTime;
+    % helo sortie data
+    HeloSortieData(sortieNumber).repositionedHelos = helosRepositioned;
+    if isempty(pilotsRepositionedByHelo)
+        HeloSortieData(sortieNumber).startRepositionTimeHr = startTimeHr;
+        HeloSortieData(sortieNumber).endRepositionTimeHr = startTimeHr+heloRepositionTime-1;
+    else
+        HeloSortieData(sortieNumber).startRepositionTimeHr = startTimeHr+pilotRepositionTime;
+        HeloSortieData(sortieNumber).endRepositionTimeHr = startTimeHr+pilotRepositionTime+heloRepositionTime-1;
+    end
+    HeloSortieData(sortieNumber).helosToFlySortie = chosenHelo;
+    HeloSortieData(sortieNumber).startSortieTimeHr = missionStartTimeHr-1;
+    HeloSortieData(sortieNumber).endSortieTimeHr = missionStartTimeHr+maxSortieTimeHrs;
+    HeloSortieData(sortieNumber).helosNeedingRestDownTime = chosenHelo;
+    HeloSortieData(sortieNumber).startRestDownTimeHr = missionStartTimeHr+maxSortieTimeHrs+1;
+    HeloSortieData(sortieNumber).endRestDownTimeHr = missionStartTimeHr+maxSortieTimeHrs+heloRestTime+heloDownTime;
+
     % set results
     JetsHoursInfo = tempJetsHoursInfo;
     PilotsHoursInfo = tempPilotsHoursInfo;
@@ -958,7 +1009,7 @@ function [chosenJets, chosenHelo, chosenPilots, jetPilotMapping, missionStartTim
     for ii = 1:length(missilesToUse)-1
         fprintf('%d, ', missilesToUse(ii));
     end
-    if (length(missilesToUse) > 1)
+    if (length(missilesToUse) >= 1)
         fprintf('%d\n', missilesToUse(length(missilesToUse)));
     else
         fprintf('\n');
@@ -1077,11 +1128,12 @@ end
 
 function [TgtStrikeOrder, OrderedDestroyOrDisableFlags, OrderedSortieTimesAgainstTarget, ...
     OrderedChanceGetKilledIfStriked] = determineTargetStrikingOrder( ...
-    IndProbKillsIfTgtIdxStrk, TgtToIdxToKill, DestroyOrDisableFlags, sortieTimesAgainstTarget)
+    IndProbKillsIfTgtIdxStrk, TgtToIdxToKill, DestroyOrDisableFlags, ...
+    sortieTimesAgainstTarget)
 
     % probability of getting killed if attack the target (at index)
     ChanceGetKilledIfStriked = 1 - prod(1 - IndProbKillsIfTgtIdxStrk,1);
-    
+
     % probability of getting killed if strike all targets but no targets destroyed
     GetKilledProbIfStrikeAll = 1 - prod(1 - ChanceGetKilledIfStriked);
     
@@ -1089,6 +1141,7 @@ function [TgtStrikeOrder, OrderedDestroyOrDisableFlags, OrderedSortieTimesAgains
     TgtStrikeOrder = zeros(1, size(IndProbKillsIfTgtIdxStrk,2));
     LiveProbability = zeros(1, size(IndProbKillsIfTgtIdxStrk,2));
     ProbGetKilledIfStrikeThisTgt = zeros(1, size(IndProbKillsIfTgtIdxStrk,2));
+
     for aa = 1:length(TgtStrikeOrder)
         
         idxToUse = find(TgtStrikeOrder == 0);
@@ -1124,8 +1177,6 @@ function [TgtStrikeOrder, OrderedDestroyOrDisableFlags, OrderedSortieTimesAgains
         % probability of survival
         LiveProbability(idxToUse(idx)) = LiveProbabilityIfTgtStriked(idx);
     end
-
-    TgtStrikeOrder 
     
     OrderedDestroyOrDisableFlags = DestroyOrDisableFlags(TgtStrikeOrder);
     OrderedSortieTimesAgainstTarget = sortieTimesAgainstTarget(TgtStrikeOrder, :);
