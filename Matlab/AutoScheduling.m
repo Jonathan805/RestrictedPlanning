@@ -358,6 +358,13 @@ function [chosenJets, chosenHelo, chosenPilots, jetPilotMapping, missionStartTim
     jetsTimeSpan = startTimeHr:(startTimeHr+maxSortieTimeHrs-1+jetRestTime);
     pilotsTimeSpan = startTimeHr:(startTimeHr+maxSortieTimeHrs-1+pilotRestTime);
 
+    if (heloTimeSpan(end) > NumHours || jetsTimeSpan(end) > NumHours || ...
+        pilotsTimeSpan(end) > NumHours)
+        % sortie does not fit
+        fprintf('\nSortie %d for Target %d does not fit in the timeline!\n', sortieNumber, targetNumber);
+        return;  % go back out of the loop, finished
+    end
+
     % get all carriers
     allCarriers = unique(JetsCarrierInfo(:,1));
 
