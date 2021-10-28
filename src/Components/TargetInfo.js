@@ -4,7 +4,11 @@ import PopoverWrapper from './PopoverWrapper';
 import Generator from './Borrowed/Generator';
 import TimeLine2 from './CustomTimeline/TimeLine'
 
+import {toast} from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+
 class TargetInfo extends Component{
+  
   constructor(props) {
     super(props);
     this.state = {
@@ -13,9 +17,13 @@ class TargetInfo extends Component{
       selectedItem: null,
       timelineMode: 'week',
       links: [],
-      nonEditableName: true
+      nonEditableName: true,
+      routeMessage: "Generate Route(s)",
+      tankerRouteMessage: "Generate Tanker Route(s)",
+      weaponRouteMessage: "Generate Weapon Route(s)"
     };
 
+    toast.configure();
     this.target = props.target;
     this.sorties = props.target.sorties;
     this.data = [];
@@ -108,9 +116,73 @@ class TargetInfo extends Component{
     return "#000000";
   }
 
-  showToast = () => {
+  showRouteGenerated = () => {
     // in the button
-    this.props.toastHandler("UH OH", this.target.targetName + " is kill!");
+    const resolveAfter3Sec = new Promise(resolve => setTimeout(resolve, 10000));
+    toast.promise(
+        resolveAfter3Sec,
+        {
+          pending: {render () {return 'Generating Route....'}, },
+          success: {render() {return 'Route Generated!'}},
+          error: 'Route Failed to generate'
+        }
+    )
+    this.setState({tankerRouteMessage:"Tanker Routes Generated ✔️"});
+
+    this.setState({routeMessage:"Routes Generated ✔️"});
+  }
+
+  showTankerRouteGenerated = () => {
+    const resolveAfter3Sec = new Promise(resolve => setTimeout(resolve, 10000));
+    toast.promise(
+        resolveAfter3Sec,
+        {
+          pending: {render () {return 'Tanker Route Requested'}, },
+          success: {render() {return 'Tanker Route Complete!'}},
+          error: 'Tanker Route Request Rejected!'
+        }
+    )
+    this.setState({tankerRouteMessage:"Tanker Routes Generated ✔️"});
+    
+  }
+
+
+  showWeaponRoutesGenerated = () => {
+    const resolveAfter3Sec = new Promise(resolve => setTimeout(resolve, 4000));
+    toast.promise(
+        resolveAfter3Sec,
+        {
+          pending: {render () {return 'Weapon Route Generating...'}, },
+          success: {render() {return 'Weapon Route Complete!'}},
+          error: 'Weapon Route Failed to Complete!'
+        }
+    )
+    this.setState({weaponRouteMessage:"Weapon Routes Generated ✔️"});
+    
+  }
+
+  notifyPilots = () => {
+    this.notifyMessage("Pikots Notified  ✔️");
+  }
+
+  notifyShips = () => {
+    this.notifyMessage("Ships Notified  ✔️");
+  }
+
+  notifyHelos = () => {
+    this.notifyMessage("Helos Notified  ✔️");
+  }
+
+  notifyMessage = (message) => {
+    toast(message, {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: true,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: false,
+      progress: undefined,
+      });
   }
   
    
@@ -190,11 +262,29 @@ class TargetInfo extends Component{
           <p>Chance of success: {this.target.successChance}</p>
         </div>
         <div>
-          <PopoverWrapper name={this.target.targetName} 
-                                    imagery={this.target.targetImage} 
-                                    buttonText="See Imagery"/>
+          <div>
+            <PopoverWrapper name={this.target.targetName} 
+                                      imagery={this.target.targetImage} 
+                                      buttonText="See Imagery"/>
+          </div>
+          <div><Button onClick={this.showRouteGenerated}>{this.state.routeMessage}</Button></div>
+          <div><Button onClick={this.showTankerRouteGenerated} variant={"dark"}>{this.state.tankerRouteMessage}</Button></div>
         </div>
-        <div><Button onClick={this.showToast}>Generate Route</Button></div>
+        <div>
+          <div>
+            <PopoverWrapper name={this.target.targetName} 
+                                      imagery={this.target.targetImage} 
+                                      buttonText="See Weather"/>
+          </div>
+          <div><Button onClick={this.showWeaponRoutesGenerated} variant={"secondary"}>{this.state.weaponRouteMessage}</Button></div>
+        </div>
+        <div>
+          <div>
+          <div><Button onClick={this.notifyShips} variant={"warning"}>Notfiy Ships</Button></div>
+          </div>
+          <div><Button onClick={this.notifyHelos} variant={"warning"}>Notify Helos</Button></div>
+          <div><Button onClick={this.notifyPilots} variant={"warning"}>Notify Pilots</Button></div>
+        </div>
       </div>
       </div>
       );

@@ -18,7 +18,8 @@ class RestrictedNav extends Component{
   }
 
   createMission = () =>  {
-    let tempMission = [...this.state.missions, "test"];
+    
+    let tempMission = [...this.state.missions, ];
 
     this.setState({missions:tempMission});
   }
@@ -28,7 +29,14 @@ class RestrictedNav extends Component{
      return this.state.missions.map((mission) => <NavDropdown.Item onClick={this.handleActivateMission}>{mission}</NavDropdown.Item>)
     }
     else {
-     return <NavDropdown.Item onClick={this.handleActivateMission}>No Missions</NavDropdown.Item>
+     return (
+       <>
+     <NavDropdown.Item onClick={this.handleActivateMission}>Mission 1</NavDropdown.Item>
+     <NavDropdown.Item onClick={this.handleActivateMission}>Mission 2</NavDropdown.Item>
+     <NavDropdown.Item onClick={this.handleActivateMission}>Mission 3</NavDropdown.Item>
+     <NavDropdown.Item onClick={this.handleActivateMission}>Mission 4</NavDropdown.Item>
+     </>
+     )
     }
   }
 

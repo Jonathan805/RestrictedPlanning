@@ -6,9 +6,6 @@ import 'bootstrap/dist/css/bootstrap.css'
 import Row from "react-bootstrap/Row"
 import TargetList from "./Components/TargetList";
 
-// Toast components
-import Toast from "./Components/ToastMessage";
-
 // Components for click and drag Aircraft selections
 import Board from './Components/Board';
 import Card from "./Components/Card";
@@ -31,18 +28,9 @@ toast.configure()
 
 const App = () => {
 
-  // Toast stuff
-  const [list, setList] = useState([]);
-
   const [showAddTarget, setShowAddTarget] = useState(false)
 
   const [targets, setTargets] = useState([])
-
-  // TODO: Need to define constants for notifications and use
-  // them when actions are performed
-  const notify = () => {
-    toast('Basic notification!')
-  }
 
   // Use effects to get targets
   useEffect(() => {
@@ -85,18 +73,6 @@ const App = () => {
     toast('Target Created')
     //console.log(task)
     //alert(JSON.stringify(data))
-  }
-
-  const showToast = (title, message) => {
-    const id = Math.floor((Math.random() * 101) + 1);
-    let toastProperties;
-    toastProperties = {
-      id,
-      title: title,
-      description: message,
-      backgroundColor: '#5cb85c'
-    }
-    setList([...list, toastProperties]);
   }
 
 
@@ -177,7 +153,7 @@ const App = () => {
         <section className="section-right">
           <section className="section-top">
             <Row>
-              <TargetList toastHandler={showToast}/>
+              <TargetList/>
             </Row>
           </section>
           <br />
@@ -200,12 +176,6 @@ const App = () => {
       </missionplanning>
 
       <Inventory />
-      <Toast 
-        toastList={list}
-        position={"bottom-right"}
-        autoDelete={false}
-        autoDeleteTime={300}
-      />
     </div>
   );
 }
