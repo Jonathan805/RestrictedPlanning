@@ -127,8 +127,6 @@ class TargetInfo extends Component{
           error: 'Route Failed to generate'
         }
     )
-    this.setState({tankerRouteMessage:"Tanker Routes Generated ✔️"});
-
     this.setState({routeMessage:"Routes Generated ✔️"});
   }
 
