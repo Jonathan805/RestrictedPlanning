@@ -1,5 +1,5 @@
 /*
-Class represents a Board object to contain draggable items
+Class represents a Board object to contain draggable items (Air Vehicles)
 */
 
 import React from 'react'

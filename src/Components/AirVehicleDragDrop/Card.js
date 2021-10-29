@@ -1,5 +1,5 @@
 /*
-Class represents a Card object that are draggable items
+Class represents a Card (AirVehicle) object that are draggable items
 */
 
 import React from 'react'
