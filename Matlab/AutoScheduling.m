@@ -37,9 +37,13 @@ TurnOnPilotJetKill = 0; % flag to turn on removing pilots/jets if they get kille
 TurnOnSortieRemove = 0; % flag to turn on removing sorties if missiles disable or destroy a target
 TurnOnPossibleJetHeloDownTime = 0; % flag to turn on removing jets/helos after landing for down time
 
+% flags for destroy or disable targets in target list
+% 1 = destroy, 0 = disable, -1 = unharm
+DestroyOrDisableFlags = [1 0 0 0 -1 -1];
+
 % Target Info Setup
-[IndProbKillsIfTgtIdxStrk, TgtToIdxToKill, DestroyOrDisableFlags, sortieTimesAgainstTarget, ...
-    percentOfJetsThatGetKilledIfAttacked] = targetInfoSetup();
+[IndProbKillsIfTgtIdxStrk, TgtToIdxToKill, sortieTimesAgainstTarget, ...
+    percentOfJetsThatGetKilledIfAttacked] = targetInfoSetup(DestroyOrDisableFlags);
 
 % Determine Target Striking Order
 [TgtStrikeOrder, OrderedDestroyOrDisableFlags, OrderedSortieTimesAgainstTarget, OrderedChanceGetKilledIfStriked] = ...
@@ -1180,8 +1184,8 @@ function [data] = plotSchedule(chosenJets, chosenHelo, chosenPilots, extraJetsTo
     createSchedule(data, NumJets, NumHelos, NumPilots);
 end
 
-function [IndProbKillsIfTgtIdxStrk, TgtToIdxToKill, DestroyOrDisableFlags, sortieTimesAgainstTarget, ...
-    percentOfJetsThatGetKilledIfAttacked] = targetInfoSetup()
+function [IndProbKillsIfTgtIdxStrk, TgtToIdxToKill, sortieTimesAgainstTarget, ...
+    percentOfJetsThatGetKilledIfAttacked] = targetInfoSetup(DestroyOrDisableFlags)
 
     % individual probabilities that target (row #) will kill for 
     % other targets (T1 - T6) (col #) if those targets are striked
@@ -1193,9 +1197,6 @@ function [IndProbKillsIfTgtIdxStrk, TgtToIdxToKill, DestroyOrDisableFlags, sorti
                                 0    0    0.3 0.3 0   0;
                                 0.15 0.15 0   0   0.4 0;
                                 0.15 0.15 0   0   0   0.4];
-
-    % flags for destroy or disable targets in target list
-    DestroyOrDisableFlags = [1 0 0 0 -1 -1];
 
     % targets to kill
     TgtToIdxToKill = find(DestroyOrDisableFlags >= 0);
