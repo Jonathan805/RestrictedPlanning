@@ -32,6 +32,11 @@ close all; clear all; clc;
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+% flags (simulating mission execution when receive extra info)
+TurnOnPilotJetKill = 0; % flag to turn on removing pilots/jets if they get killed
+TurnOnSortieRemove = 0; % flag to turn on removing sorties if missiles disable or destroy a target
+TurnOnPossibleJetHeloDownTime = 0; % flag to turn on removing jets/helos after landing for down time
+
 % Target Info Setup
 [IndProbKillsIfTgtIdxStrk, TgtToIdxToKill, DestroyOrDisableFlags, sortieTimesAgainstTarget, ...
     percentOfJetsThatGetKilledIfAttacked] = targetInfoSetup();
@@ -42,7 +47,7 @@ close all; clear all; clc;
     sortieTimesAgainstTarget);
 
 % Determine Number of Missiles Needed for Targets
-[numMissilesPerTarget, numMissilesNeededForTgt] = missileInfoSetup(OrderedDestroyOrDisableFlags);
+[numMissilesPerTarget, numMissilesNeededForTgt] = missileInfoSetup(OrderedDestroyOrDisableFlags,TurnOnSortieRemove);
 
 %%%%%%%%%%%%%
 % Timeline  %
@@ -57,11 +62,6 @@ NumSorties = length(TgtStrikeOrder);
     HeloMaxPilotsMoved, JetSortiesInfo, JetMaintenanceHrsAfterHrsInFlight, minimumJetsRequired, ...
     JetDownTimeInfo, HeloDownTimeInfo, PilotsNumOfFlights, data] = setUp(NumSorties);
 
-% flags (simulating mission execution when receive extra info)
-TurnOnPilotJetKill = 1; % flag to turn on removing pilots/jets if they get killed
-TurnOnSortieRemove = 1; % flag to turn on removing sorties if missiles disable or destroy a target
-TurnOnPossibleJetHeloDownTime = 1; % flag to turn on removing jets/helos after landing for down time
-
 startTimeHr = 1;
 numberOfJetsPilotsKilled = 0;
 JetSortieData = [];
@@ -69,6 +69,11 @@ PilotSortieData = [];
 HeloSortieData = [];
 TargetSuccessCount = 0;
 for kk = 1:length(TgtStrikeOrder)
+
+    if (OrderedDestroyOrDisableFlags(kk) == -1)
+        TargetSuccessCount = TargetSuccessCount + 1;
+        continue;
+    end
 
     % max sortie time
     maxSortieTimeHrs = OrderedSortieTimesAgainstTarget(kk, 2);
@@ -115,7 +120,9 @@ for kk = 1:length(TgtStrikeOrder)
 end
 
 disp(' ');
-disp(['Number of Casualties: ' num2str(numberOfJetsPilotsKilled)]);
+if TurnOnPilotJetKill
+    disp(['Number of Casualties: ' num2str(numberOfJetsPilotsKilled)]);
+end
 disp(['Number of Targets Accounted For: ' num2str(TargetSuccessCount)]);
 
 % data for the front end
@@ -896,9 +903,10 @@ function [chosenJets, chosenHelo, chosenPilots, jetPilotMapping, missionStartTim
         % not enough missiles on the carrier
         numMissilesStillNeeded = numMissilesNeeded - nnz(msIdx);
         msFromOtherCarriersIdx = find(MissilesCarrierInfo ~= carrierNumToUse & MissilesCarrierInfo ~= 0);
-        if (nnz(msFromOtherCarriersIdx) >= numMissilesStillNeeded)
+        if (nnz(msFromOtherCarriersIdx) >= 0)
             % have enough missiles if move some to the carrier
-            missilesToMove = msFromOtherCarriersIdx(1:numMissilesStillNeeded);
+            availNumMissiles = min(numMissilesStillNeeded, nnz(msFromOtherCarriersIdx));
+            missilesToMove = msFromOtherCarriersIdx(1:availNumMissiles);
             carriersToMoveMissilesFrom = MissilesCarrierInfo(missilesToMove);
             missilesToUse = [msIdx missilesToMove];
 
@@ -907,16 +915,17 @@ function [chosenJets, chosenHelo, chosenPilots, jetPilotMapping, missionStartTim
                 for ff = 1:length(carriersToMoveMissilesFrom)
                     % jets are moving from the same carriers as the
                     % missiles, don't need to do anything extra
-                    jIdx = find(JetCarrierInfo(jetsRepositioned) == carriersToMoveMissilesFrom(ff));
+                    jIdx = find(JetsCarrierInfo(jetsRepositioned) == carriersToMoveMissilesFrom(ff));
                     spaceForMissilesOnRepoJets = spaceForMissilesOnRepoJets + sum(jetMissileStorage(jIdx));
+                end
+                if (spaceForMissilesOnRepoJets > 0)
+                    % don't need to reposition missiles since enough jets
+                    % are being repositioned already
+                    disp(['Jets will be repositioned and those will take the needed ' num2str(spaceForMissilesOnRepoJets) ' missiles']);
                 end
             end
             numMissilesNeededToReposition = numMissilesStillNeeded - spaceForMissilesOnRepoJets;
-            if (numMissilesNeededToReposition <= 0)
-                % don't need to reposition missiles since enough jets
-                % are being repositioned already
-                disp(['Jets will be repositioned and those will take the needed ' num2str(numMissilesStillNeeded) ' missiles\n']);
-            else
+            if (numMissilesNeededToReposition > 0)
                 % need to reposition missiles using any available jets
                 jetsThatCanMoveMissiles = setdiff(AvailableJets, chosenJets);
                 mCount = 0;
@@ -1184,12 +1193,12 @@ function [IndProbKillsIfTgtIdxStrk, TgtToIdxToKill, DestroyOrDisableFlags, sorti
                                 0    0    0.3 0.3 0   0;
                                 0.15 0.15 0   0   0.4 0;
                                 0.15 0.15 0   0   0   0.4];
-    
-    % targets to kill
-    TgtToIdxToKill = [1 2 3 4 5 6];
 
     % flags for destroy or disable targets in target list
-    DestroyOrDisableFlags = [1 0 0 0 0 0];
+    DestroyOrDisableFlags = [1 0 0 0 -1 -1];
+
+    % targets to kill
+    TgtToIdxToKill = find(DestroyOrDisableFlags >= 0);
 
     % sortie times
     % min/ max times in hrs
@@ -1271,7 +1280,7 @@ function [TgtStrikeOrder, OrderedDestroyOrDisableFlags, OrderedSortieTimesAgains
     disp(['Survivability Probability: ' num2str(probNotGetKilled*100) '%']);
 end
 
-function [numMissilesPerTarget, numMissilesNeededForTgt] = missileInfoSetup(OrderedDestroyOrDisableFlags)
+function [numMissilesPerTarget, numMissilesNeededForTgt] = missileInfoSetup(OrderedDestroyOrDisableFlags, TurnOnSortieRemove)
     ProbNeededToDisableTgt = 0.9;
     ProbNeededToDestroyTgt = 0.9;
     MissileHitProbability = 0.6;
@@ -1299,40 +1308,45 @@ function [numMissilesPerTarget, numMissilesNeededForTgt] = missileInfoSetup(Orde
     % figure out how many missiles are needed for each target
     numMissilesPerTarget = NumMissilesNeededToDisableTarget * ones(1, length(OrderedDestroyOrDisableFlags));
     for ii = 1:length(OrderedDestroyOrDisableFlags)
-        if (OrderedDestroyOrDisableFlags(ii))
+        if (OrderedDestroyOrDisableFlags(ii) == 1)
             numMissilesPerTarget(ii) = NumMissilesNeededToDestroyTarget;
+        elseif (OrderedDestroyOrDisableFlags(ii) == -1)
+            numMissilesPerTarget(ii) = 0;
         end
     end
 
     disp(['Num Missiles Needed for each Target: ' num2str(numMissilesPerTarget)]);
 
-    % roll a dice to see if a target is disabled or destroyed per missile
-    % on target
-    numMissilesNeededForTgt = numMissilesPerTarget;
-    for tgtIdx = 1:length(OrderedDestroyOrDisableFlags)
-        for nMissile = 1:numMissilesPerTarget
-            % determine if missile hits the target
-            if (rand <= MissileHitProbability)
-                % hit
-                if (rand <= HitProbilityOfDestroy)
-                    % destroy
-                    numMissilesNeededForTgt(tgtIdx) = nMissile;
-                    break;
-                else
-                    % disable
-                    if (OrderedDestroyOrDisableFlags(tgtIdx) == 1)
-                        % need to destroy
-                    else
-                        % disable is good enough
+    numMissilesNeededForTgt = [];
+    if (TurnOnSortieRemove)
+        % roll a dice to see if a target is disabled or destroyed per missile
+        % on target
+        numMissilesNeededForTgt = numMissilesPerTarget;
+        for tgtIdx = 1:length(OrderedDestroyOrDisableFlags)
+            for nMissile = 1:numMissilesPerTarget
+                % determine if missile hits the target
+                if (rand <= MissileHitProbability)
+                    % hit
+                    if (rand <= HitProbilityOfDestroy)
+                        % destroy
                         numMissilesNeededForTgt(tgtIdx) = nMissile;
                         break;
+                    else
+                        % disable
+                        if (OrderedDestroyOrDisableFlags(tgtIdx) == 1)
+                            % need to destroy
+                        else
+                            % disable is good enough
+                            numMissilesNeededForTgt(tgtIdx) = nMissile;
+                            break;
+                        end
                     end
+                else
+                    % miss
                 end
-            else
-                % miss
             end
         end
+    
+        disp(['Num Missiles Actually Used for each Target: ' num2str(numMissilesNeededForTgt)]);
     end
-
-    disp(['Num Missiles Actually Used for each Target: ' num2str(numMissilesNeededForTgt)]);
 end
