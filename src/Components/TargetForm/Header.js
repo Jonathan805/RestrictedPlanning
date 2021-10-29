@@ -7,7 +7,7 @@ const Header = ({ title, onAdd, showAddTarget, generateFile, generateSample}) =>
     <header className='header'>
       <h1 style={{color: 'Black', backgroundColor:'lightGreen'}}>{title}</h1>
       <Button backColor={showAddTarget ? 'red' : 'green'} 
-      text={showAddTarget ? 'Close Create Target' : 'Create New Target'} 
+      text={showAddTarget ? 'Close' : 'Create New Target'} 
       onClick={onAdd}/>
       <Button backColor='Blue'
       text='Generate Targets File'
