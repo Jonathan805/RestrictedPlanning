@@ -7,6 +7,14 @@
       "elevation": "9 MIL",
       "successRate": "0.5",
       "id": 4
+    },
+    {
+      "name": "Target 1",
+      "latitude": "65",
+      "longitude": "98",
+      "elevation": "9 MIL",
+      "successRate": "0.78",
+      "id": 5
     }
   ]
 }
