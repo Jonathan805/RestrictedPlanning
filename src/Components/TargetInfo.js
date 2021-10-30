@@ -18,9 +18,9 @@ class TargetInfo extends Component{
       timelineMode: 'week',
       links: [],
       nonEditableName: true,
-      routeMessage: "Generate Route(s)",
-      tankerRouteMessage: "Generate Tanker Route(s)",
-      weaponRouteMessage: "Generate Weapon Route(s)"
+      routeMessage: "Sorite Route Not Planned ❌",
+      tankerRouteMessage: "Tanker Route Not Planned ❌",
+      weaponRouteMessage: "Weapon Route Not Planned ❌"
     };
 
     toast.configure();
