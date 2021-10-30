@@ -273,33 +273,6 @@ class TargetInfo extends Component{
           <p>Chance of success: {this.target.successChance}</p>
         </div>
         <div>
-          <ToggleButton type="radio"
-                        name="radio"
-                        variant="secondary"
-                        value="destroy"
-                        checked={this.state.desiredOutcome == "destroy"}
-                        onChange={(e) => this.setState({desiredOutcome: e.currentTarget.value})}
-                        >
-            Destroy
-          </ToggleButton>
-          <ToggleButton type="radio"
-                        name="radio"
-                        variant="secondary"
-                        value="disable"
-                        checked={this.state.desiredOutcome == "disable"}
-                        onChange={(e) => this.setState({desiredOutcome: e.currentTarget.value})}>
-            Disable
-          </ToggleButton>
-          <ToggleButton type="radio"
-                        name="radio"
-                        variant="secondary"
-                        value="hit"
-                        checked={this.state.desiredOutcome == "hit"}
-                        onChange={(e) => this.setState({desiredOutcome: e.currentTarget.value})}>
-            Hit
-          </ToggleButton>
-        </div>
-        <div>
           <div>
             <PopoverWrapper name={this.target.targetName} 
                                       imagery={this.target.targetImage} 
