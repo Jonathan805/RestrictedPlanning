@@ -1,11 +1,11 @@
-/*Aircraft object placed in card*/
+/*Aircraft objects that placed in card*/
 
 //import { propTypes } from "react-bootstrap/esm/Image"
 
 const Aircraft = ({aircraftName, image}) => {
     return (
         <p>{aircraftName}
-        <br></br><img src={image} alt={aircraftName} />
+        <br></br><img src={image} alt={aircraftName} /><br></br>
           <select name="count" id="count">
             <option value="1">1</option>
             <option value="2">2</option>

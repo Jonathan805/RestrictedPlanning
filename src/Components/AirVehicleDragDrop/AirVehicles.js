@@ -9,7 +9,7 @@ import FA18F from '../../AircraftImages/FA-18A.png';
 import F35 from '../../AircraftImages/F35.png';
 import B2 from '../../AircraftImages/B2.png';
 import AH64 from '../../AircraftImages/AH-64.png';
-
+import Pilot from '../../AircraftImages/AirForce.png';
 
 const AirVehicles = () => {
     return (
@@ -30,6 +30,9 @@ const AirVehicles = () => {
         </Card>
         <Card id="Aircraft-5" className="aircraft" draggable="true">
           <Aircraft aircraftName='B2' image={B2} />
+        </Card>
+        <Card id="Pilot" className="aircraft" draggable="true">
+          <Aircraft aircraftName='Pilots' image={Pilot} />
         </Card>
       </Board>
       <Board id="board-2" className="board">

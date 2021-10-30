@@ -12,7 +12,6 @@ const Header = ({ title, onAdd, showAddTarget, generateFile, generateSample}) =>
       <Button backColor='Blue'
       text='Generate Targets File'
       onClick={generateFile}/>
-
     </header>
   )
 }
