@@ -3,6 +3,7 @@ import Button from 'react-bootstrap/Button'
 import PopoverWrapper from './PopoverWrapper';
 import Generator from './Borrowed/Generator';
 import TimeLine2 from './CustomTimeline/TimeLine'
+import { ToggleButton } from 'react-bootstrap';
 
 import {toast} from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
@@ -20,7 +21,8 @@ class TargetInfo extends Component{
       nonEditableName: true,
       routeMessage: "Sorite Route Not Planned ❌",
       tankerRouteMessage: "Tanker Route Not Planned ❌",
-      weaponRouteMessage: "Weapon Route Not Planned ❌"
+      weaponRouteMessage: "Weapon Route Not Planned ❌",
+      desiredOutcome: "destroy"
     };
 
     toast.configure();
@@ -269,6 +271,33 @@ class TargetInfo extends Component{
           <p>Longitude: {this.target.longitude} </p>
           <p>Elevation: {this.target.elevation} </p>
           <p>Chance of success: {this.target.successChance}</p>
+        </div>
+        <div>
+          <ToggleButton type="radio"
+                        name="radio"
+                        variant="secondary"
+                        value="destroy"
+                        checked={this.state.desiredOutcome == "destroy"}
+                        onChange={(e) => this.setState({desiredOutcome: e.currentTarget.value})}
+                        >
+            Destroy
+          </ToggleButton>
+          <ToggleButton type="radio"
+                        name="radio"
+                        variant="secondary"
+                        value="disable"
+                        checked={this.state.desiredOutcome == "disable"}
+                        onChange={(e) => this.setState({desiredOutcome: e.currentTarget.value})}>
+            Disable
+          </ToggleButton>
+          <ToggleButton type="radio"
+                        name="radio"
+                        variant="secondary"
+                        value="hit"
+                        checked={this.state.desiredOutcome == "hit"}
+                        onChange={(e) => this.setState({desiredOutcome: e.currentTarget.value})}>
+            Hit
+          </ToggleButton>
         </div>
         <div>
           <div>

@@ -43,7 +43,7 @@ const CreateTarget = ({createTarget}) => {
     }
 
     return (
-        <form class-Name='create-target' onSubmit={onSubmit} class='form-control'>
+        <form className='create-target' onSubmit={onSubmit} class='form-control'>
             <div clasName='form-control'>
                 <label>Name</label>
                 <br/>

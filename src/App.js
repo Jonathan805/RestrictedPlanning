@@ -29,11 +29,10 @@ const App = () => {
       <missionplanning className="missionfunctions">
       <section className="section-right">
           <section className="section-top">
-            <Row>
-              <TargetList/>
-            </Row>
+              
+            <TargetCreator/>
           </section>
-          <TargetCreator/>
+          <TargetList/>
       </section>
       </missionplanning>
 
