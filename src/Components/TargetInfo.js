@@ -68,13 +68,24 @@ class TargetInfo extends Component{
     item.end = props.end;
     item.restEnd = props.restEnd;
     let difference = (item.end - item.start) / 1000 / 60 / 60;
-    console.log(item);
     if (difference > item.maxSortieTime){
       item.color = this.getInvalidColor();
     }
     else{
       item.color = this.getSortieColor();
     }   
+
+    // adjust the success chance randomly
+
+    this.target.successChance = (parseFloat(this.target.successChance) + (Math.round(10* (Math.random() * (2) -1))/100)).toFixed(2) ;
+    if (parseFloat(this.target.successChance) > 1.0)
+    {
+      this.target.successChance = "1.0";
+    }
+    else if (parseFloat(this.target.successChance) < 0.0)
+    {
+      this.target.successChance = "0.0";
+    }
     this.setState({ data: [...this.state.data] });
   };
   
