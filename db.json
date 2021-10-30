@@ -7,22 +7,6 @@
       "elevation": "9 MIL",
       "successRate": "0.5",
       "id": 4
-    },
-    {
-      "name": "sfgd",
-      "latitude": "fdgdf",
-      "longitude": "dfgfg",
-      "elevation": "dfgdf",
-      "successRate": "fdg",
-      "id": 5
-    },
-    {
-      "name": "trt",
-      "latitude": "rtet",
-      "longitude": "rtert",
-      "elevation": "ertert",
-      "successRate": "rtert",
-      "id": 6
     }
   ]
 }
