@@ -785,7 +785,13 @@ function [chosenJets, chosenHelo, chosenPilots, jetPilotMapping, missionStartTim
     if (jetsMoved > 0)
         tempJetsHoursInfo(jetListMove, startTimeHr:(startTimeHr+jetRepositionTime-1)) = 0;
         jetsRepositioned = jetListMove;
-        pilotsRepositionedByJet = pilotListMove;
+
+        for pp = 1:length(jetsRepositioned)
+            tmpIdx = find(jetPilotMapping(:,1) == jetsRepositioned(pp));
+            if ~isempty(tmpIdx)
+                pilotsRepositionedByJet = [pilotsRepositionedByJet jetPilotMapping(tmpIdx,2)];
+            end
+        end
         tempPilotsHoursInfo(pilotsRepositionedByJet, startTimeHr:(startTimeHr+jetRepositionTime-1)) = 0;
         missionStartTimeHr = startTimeHr+jetRepositionTime;
 
@@ -797,7 +803,7 @@ function [chosenJets, chosenHelo, chosenPilots, jetPilotMapping, missionStartTim
     % in this
     if (exist("heloList") && ~isempty(heloList))
         tempHelosHoursInfo(heloList, startTimeHr:(startTimeHr+pilotRepositionTime-1)) = 0;
-        pilotsRepositionedByHelo = setdiff(pilotsToMoveCarriers, pilotsRepositionedByJet);
+        pilotsRepositionedByHelo = setdiff(pilotListMove, pilotsRepositionedByJet);
         tempPilotsHoursInfo(pilotsRepositionedByHelo, startTimeHr:(startTimeHr+pilotRepositionTime-1)) = 0;
         missionStartTimeHr = startTimeHr+pilotRepositionTime;
 
@@ -822,10 +828,10 @@ function [chosenJets, chosenHelo, chosenPilots, jetPilotMapping, missionStartTim
     % fill  in tempData for checking constraints only
     tempData(chosenJets, missionStartTimeHr:(missionStartTimeHr+maxSortieTimeHrs-1)) = 1;
     tempData(chosenJets, (missionStartTimeHr+maxSortieTimeHrs):(missionStartTimeHr+maxSortieTimeHrs+jetRestTime-1)) = 0.2;
-    tempData(NumJets + chosenPilots, missionStartTimeHr:(missionStartTimeHr+maxSortieTimeHrs-1)) = 1;
-    tempData(NumJets + chosenPilots, (missionStartTimeHr+maxSortieTimeHrs):(missionStartTimeHr+maxSortieTimeHrs+pilotRestTime-1)) = 0.2;
-    tempData(NumJets + NumPilots + chosenHelo, missionStartTimeHr-1:(missionStartTimeHr+maxSortieTimeHrs)) = 1;
-    tempData(NumJets + NumPilots + chosenHelo, (missionStartTimeHr+maxSortieTimeHrs+1):(missionStartTimeHr+maxSortieTimeHrs+heloRestTime)) = 0.2;
+    tempData(NumJets + NumHelos + chosenPilots, missionStartTimeHr:(missionStartTimeHr+maxSortieTimeHrs-1)) = 1;
+    tempData(NumJets + NumHelos + chosenPilots, (missionStartTimeHr+maxSortieTimeHrs):(missionStartTimeHr+maxSortieTimeHrs+pilotRestTime-1)) = 0.2;
+    tempData(NumJets + chosenHelo, missionStartTimeHr-1:(missionStartTimeHr+maxSortieTimeHrs)) = 1;
+    tempData(NumJets + chosenHelo, (missionStartTimeHr+maxSortieTimeHrs+1):(missionStartTimeHr+maxSortieTimeHrs+heloRestTime)) = 0.2;
     dayNum = ceil(missionStartTimeHr/24);
     tempJetSortiesInfo(chosenJets, dayNum) = tempJetSortiesInfo(chosenJets, dayNum) + 1;
 
@@ -925,6 +931,7 @@ function [chosenJets, chosenHelo, chosenPilots, jetPilotMapping, missionStartTim
                 if (spaceForMissilesOnRepoJets > 0)
                     % don't need to reposition missiles since enough jets
                     % are being repositioned already
+                    disp(' ');
                     disp(['Jets will be repositioned and those will take the needed ' num2str(spaceForMissilesOnRepoJets) ' missiles']);
                 end
             end
